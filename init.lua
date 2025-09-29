@@ -1,32 +1,34 @@
--- ~/.config/nvim/init.lua
+local lazypath = vim.fn.stdpath("data") .. "/site/pack/lazy/start/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup({
+  -- Example plugins:
+  "nvim-treesitter/nvim-treesitter", -- Syntax highlighting
+  "nvim-lua/plenary.nvim",            -- Lua utilities (dependency for many plugins)
+  "nvim-telescope/telescope.nvim",    -- Fuzzy finder
+})
 
--- Set leader key
+
+
+
 vim.g.mapleader = " "
-
--- Line numbers
 vim.o.number = true
 vim.o.relativenumber = true
-
--- Tabs & indentation
 vim.o.tabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
-
--- Enable mouse
 vim.o.mouse = "a"
-
--- Enable clipboard
 vim.o.clipboard = "unnamedplus"
-
--- Search settings
 vim.o.ignorecase = true
 vim.o.smartcase = true
-
--- Colors
 vim.o.termguicolors = true
-
--- Save undo history
 vim.opt.undofile = true
-
--- Basic keymap example
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
