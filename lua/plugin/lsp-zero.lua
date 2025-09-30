@@ -12,7 +12,7 @@ local M = {
       'saadparwaiz1/cmp_luasnip',
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-nvim-lua',
-
+      'onsails/lspkind.nvim',
       -- Snippets
       'L3MON4D3/LuaSnip',
       'rafamadriz/friendly-snippets',
@@ -40,6 +40,43 @@ function M.config()
       }
    })
    lsp.setup()
-end   
+   local cmp = require('cmp')
+   local luasnip = require('luasnip')
+   local lspkind = require('lspkind')
+   local rounded_border = {
+      { "╭", "CmpBorder" },
+      { "─", "CmpBorder" },
+      { "╮", "CmpBorder" },
+      { "│", "CmpBorder" },
+      { "╯", "CmpBorder" },
+      { "─", "CmpBorder" },
+      { "╰", "CmpBorder" },
+      { "│", "CmpBorder" },
+   }
+   cmp.setup({
+      formatting = {
+         format = lspkind.cmp_format({
+            mode = "symbol_text",
+            maxwidth=75,
+            ellipsis_char = '...',
+         })
+      },
+      window = {
+         completion = {
+            border="rounded",
+            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+            col_offset = -3,
+            side_padding = 0,
+         },
+      },
+      sources = cmp.config.sources({
+         { name = 'nvim_lsp' },
+         { name = 'luasnip' },
+         { name = 'buffer' },
+         { name = 'path' },
+      }),
+   })
+
+end
 
 return M

@@ -1,12 +1,12 @@
 local M = {
     "nvim-treesitter/nvim-treesitter",
-    build = "TSUpdate",
     lazy = false,
+    event = "BufReadPost"
   }
 
 function M.config()
     require "nvim-treesitter.configs".setup {
-        ensure_installed = { "c", "lua", "rust", "bash" },
+        ensure_installed = { "lua", "rust" },
         sync_install = true,
         auto_install = true,
         highlight = { enable = true },
