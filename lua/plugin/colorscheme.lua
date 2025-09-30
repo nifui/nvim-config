@@ -4,6 +4,15 @@ local M = {
     priority = 1000,
 }
 function M.config() 
-    vim.cmd.colorscheme "cyberdream"
+    require("cyberdream").setup({
+        variant = "default",
+        transparent=true,
+        saturation =0.5,
+        italic_comments=true,
+        cache=false,
+    })
+
+
+    vim.cmd("colorscheme cyberdream")
 end
 return M

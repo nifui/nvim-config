@@ -1,5 +1,8 @@
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set('n', '<leader>tt', ':bnext<CR>', { desc = 'Go to next buffer (e.g., terminal)' })
+-- go back to pre existing terminal 
 
+vim.g.mapleader = " "
 -- telescope keymaps
 
 local builtin = require("telescope.builtin")
@@ -40,3 +43,6 @@ vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
 -- gen keymaps
 
 vim.keymap.set('v', '<leader>ia', ':Gen<CR>')
+
+-- nvim branch keymaps
+vim.keymap.set('n', '<leader>q', '<cmd>NvimTreeToggle<CR>')
