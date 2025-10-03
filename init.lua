@@ -12,6 +12,8 @@ spec("plugin.undotree")
 spec("plugin.lsp-zero")
 spec("plugin.mason")
 spec("plugin.gen")
+spec("plugin.autopairs")
+
 spec("plugin.nvim-tree")
 require "plugin.lazy"
 require "keymaps"

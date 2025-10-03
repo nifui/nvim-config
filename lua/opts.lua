@@ -2,7 +2,7 @@
 
 -- Set leader
 vim.g.mapleader = " "
-
+vim.o.autowriteall = true
 -- Numbers
 vim.opt.nu = true
 vim.opt.relativenumber = true
