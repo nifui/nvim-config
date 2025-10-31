@@ -57,13 +57,13 @@ function M.config()
       formatting = {
          format = lspkind.cmp_format({
             mode = "symbol_text",
-            maxwidth=75,
+            maxwidth = 75,
             ellipsis_char = '...',
          })
       },
       window = {
          completion = {
-            border="rounded",
+            border = "rounded",
             winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
             col_offset = -3,
             side_padding = 0,
@@ -76,7 +76,6 @@ function M.config()
          { name = 'path' },
       }),
    })
-
 end
 
 return M
