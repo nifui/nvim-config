@@ -22,7 +22,7 @@ function M.config()
    local lsp = require("lsp-zero").preset({})
    lsp.ensure_installed({
       'lua_ls',
-      'rust_analyzer'
+      'rust_analyzer',
    })
    require('lspconfig').rust_analyzer.setup({
       settings = {

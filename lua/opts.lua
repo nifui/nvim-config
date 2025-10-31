@@ -3,7 +3,10 @@
 -- Set leader
 vim.g.mapleader = " "
 vim.o.autowriteall = true
--- Numbers
+vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+   pattern = "*.rs",
+   command = "silent! write"
+}) -- Numbers
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
