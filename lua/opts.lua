@@ -30,7 +30,7 @@ vim.opt.updatetime = 50
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
-
+vim.opt.colorcolumn = ""
 -- Handle undo directory cross-platform
 if vim.loop.os_uname().sysname == "Windows_NT" then
    vim.opt.undodir = os.getenv("UserProfile") .. "\\.vim\\undodir"
