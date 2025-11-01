@@ -5,14 +5,13 @@ local M = {
     local npairs = require('nvim-autopairs')
 
     npairs.setup({
-      check_ts = true, -- enable treesitter
+      check_ts = true,
       ts_config = {
-        rust = {'string_literal', 'comment'}, -- ignore pairs inside these nodes
+        rust = {'string_literal', 'comment'},
       },
-      fast_wrap = {}, -- optional: visual wrap on demand
+      fast_wrap = {}, 
     })
 
-    -- If you're using nvim-cmp for autocompletion
     local cmp_status_ok, cmp = pcall(require, "cmp")
     if cmp_status_ok then
        local cmp_autopairs = require("nvim-autopairs.completion.cmp")

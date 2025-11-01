@@ -1,80 +1,46 @@
 local M = {
-   'VonHeikemen/lsp-zero.nvim',
-   branch = "v1.x",
-   dependencies = {
-      -- LSP support
-      'neovim/nvim-lspconfig',
-
-      -- Autocompletetion
-      'hrsh7th/nvim-cmp',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lua',
-      'onsails/lspkind.nvim',
-      -- Snippets
-      'L3MON4D3/LuaSnip',
-      'rafamadriz/friendly-snippets',
-   },
+   "neovim/nvim-lspconfig",                -- required plugin identifier
+   event = { "BufReadPre", "BufNewFile" }, -- optional lazy-load trigger
 }
+
 function M.config()
-   local lsp = require("lsp-zero").preset({})
-   lsp.ensure_installed({
-      'lua_ls',
-      'rust_analyzer',
-   })
-   require('lspconfig').rust_analyzer.setup({
+   local lsp_defaults = vim.lsp.protocol.make_client_capabilities()
+   local cmp_caps = require("cmp_nvim_lsp").default_capabilities()
+   lsp_defaults = vim.tbl_deep_extend("force", lsp_defaults, cmp_caps)
+
+   -- Rust
+   vim.lsp.start({
+      name = "rust_analyzer",
+      cmd = { "rust-analyzer" },
+      root_dir = vim.fs.dirname(vim.fs.find({ "Cargo.toml", ".git" }, { upward = true })[1]),
       settings = {
          ["rust-analyzer"] = {
             cargo = { allFeatures = true },
             checkOnSave = { command = "clippy" },
-         }
-      }
-   })
-   require('lspconfig').lua_ls.setup({
-      settings = {
-         Lua = {
-            diagnostics = { globals = { 'vim' } }
-         }
-      }
-   })
-   lsp.setup()
-   local cmp = require('cmp')
-   local luasnip = require('luasnip')
-   local lspkind = require('lspkind')
-   local rounded_border = {
-      { "╭", "CmpBorder" },
-      { "─", "CmpBorder" },
-      { "╮", "CmpBorder" },
-      { "│", "CmpBorder" },
-      { "╯", "CmpBorder" },
-      { "─", "CmpBorder" },
-      { "╰", "CmpBorder" },
-      { "│", "CmpBorder" },
-   }
-   cmp.setup({
-      formatting = {
-         format = lspkind.cmp_format({
-            mode = "symbol_text",
-            maxwidth = 75,
-            ellipsis_char = '...',
-         })
-      },
-      window = {
-         completion = {
-            border = "rounded",
-            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
-            col_offset = -3,
-            side_padding = 0,
          },
       },
-      sources = cmp.config.sources({
-         { name = 'nvim_lsp' },
-         { name = 'luasnip' },
-         { name = 'buffer' },
-         { name = 'path' },
-      }),
+      capabilities = lsp_defaults,
+   })
+
+
+   -- Diagnostics settings
+   vim.diagnostic.config({
+      virtual_text = true,
+      signs = true,
+      underline = true,
+      update_in_insert = false,
+   })
+
+   -- You can attach keymaps manually when the client starts
+   vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+         local buf = args.buf
+         local opts = { buffer = buf }
+         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+      end,
    })
 end
 
