@@ -21,12 +21,46 @@ function M.config()
       },
       capabilities = lsp_defaults,
    })
+   vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+      pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
+      callback = function()
+         if vim.lsp.get_clients({ name = "tsserver" })[1] then
+            return
+         end
+         vim.lsp.start({
+            name = "tsserver",
+            cmd = { "typescript-language-server", "--stdio" },
+            root_dir = get_root({ "tsconfig.json", "package.json", ".git" }),
+            capabilities = lsp_defaults,
+            single_file_support = true,
+            init_options = {
+               hostInfo = "neovim",
+            },
+         })
+      end,
+   })
+   vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
+      pattern = "*.vue",
+      callback = function()
+         vim.lsp.start({
+            name = "volar",
+            cmd = { "vue-language-server", "--stdio" },
+            root_dir = get_root({ "package.json", "tsconfig.json", "vue.config.js", ".git" }),
+            capabilities = lsp_defaults,
+            single_file_support = true,
+            init_options = {
+               typescript = {
+                  tsdk = vim.fn.stdpath("data") .. "/mason/packages/typescript/lib", -- optional if using Mason
+               },
+            },
+         })
+      end,
+   })
+   vim.lsp.inlay_hint.enable(true)
 
-
-   -- Diagnostics settings
    vim.diagnostic.config({
       virtual_text = true,
-      signs = true,
+      signs = false,
       underline = true,
       update_in_insert = false,
    })

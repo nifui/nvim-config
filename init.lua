@@ -1,12 +1,18 @@
-print("Hola mundo")
 require "opts"
 require "launch"
-spec("plugin.colorscheme")
-vim.cmd("highlight! NormalFloat guibg=#c36c92")
+
+require("plugin.colortheme")
+vim.api.nvim_create_user_command("ReloadTheme", function()
+    package.loaded["plugin.colortheme.lua"] = nil
+    require("plugin.colortheme")
+    print("Reset the color theme")
+end, {})
+
 spec("plugin.lualine")
 spec("plugin.treesitter")
 spec("plugin.telescope")
 spec("plugin.fugitive")
+spec("plugin.nvim-scrollbar")
 spec("plugin.harpoon")
 spec("plugin.undotree")
 spec("plugin.mason")
@@ -17,5 +23,6 @@ spec("plugin.nvim-autopairs")
 spec("plugin.smear_cursor")
 spec("plugin.lspsaga")
 spec("plugin.nvim-tree")
+
 require "plugin.lazy"
 require "keymaps"

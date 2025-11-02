@@ -3,10 +3,13 @@
 -- Set leader
 vim.g.mapleader = " "
 vim.o.autowriteall = true
-vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
+vim.api.nvim_create_autocmd("BufWritePre", {
    pattern = "*.rs",
-   command = "silent! write"
-}) -- Numbers
+   callback = function()
+      vim.lsp.buf.format({ async = false })
+   end,
+})
+
 vim.opt.nu = true
 vim.opt.relativenumber = true
 
@@ -27,8 +30,8 @@ vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 50
 
 -- Undo / swap
-vim.opt.swapfile = false
-vim.opt.backup = false
+vim.opt.swapfile = true
+vim.opt.backup = true
 vim.opt.undofile = true
 vim.opt.colorcolumn = ""
 -- Handle undo directory cross-platform

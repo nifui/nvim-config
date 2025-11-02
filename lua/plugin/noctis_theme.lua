@@ -1,5 +1,7 @@
 local highlight = vim.api.nvim_set_hl;
 
+--this just a backup file incase i didnt set some stuff
+--probably better off leaving it blank so i know what i didnt set but im too lazy to do it
 return {
     from_palette = function(palette, override)
         local highlight_groups = {
@@ -25,6 +27,7 @@ return {
 
             Module                     = { fg = palette.blue, },
             Normal                     = { fg = palette.fg, bg = palette.bg0 },
+            NormalNC                   = { fg = palette.fg, bg = palette.b0 },
             Terminal                   = { fg = palette.fg, bg = palette.bg0 },
             EndOfBuffer                = { fg = palette.bg0, bg = palette.bg0 },
             FoldColumn                 = { fg = palette.grey, bg = palette.bg1 },
@@ -43,7 +46,7 @@ return {
             DiffDelete                 = { fg = palette.none, bg = palette.bg_red },
             DiffText                   = { fg = palette.none, bg = palette.bg0, reverse = true },
             Directory                  = { fg = palette.green, bg = palette.none },
-            ErrorMsg                   = { fg = palette.red, bg = palette.none, bold = true, underline = true },
+            ErrorMsg                   = { fg = palette.red, bg = palette.none,  underline = true },
             WarningMsg                 = { fg = palette.yellow, bg = palette.none, bold = true },
             ModeMsg                    = { fg = palette.fg, bg = palette.none, bold = true },
             MoreMsg                    = { fg = palette.blue, bg = palette.none, bold = true },
@@ -116,8 +119,8 @@ return {
             DiagnosticSignHint         = { link = 'DiagnosticHint' },
             DiagnosticSignInfo         = { link = 'DiagnosticInfo' },
             DiagnosticSignWarn         = { link = 'DiagnosticWarn' },
-            DiagnosticUnderlineError   = { sp = palette.red, undercurl = true },
-            DiagnosticUnderlineHint    = { sp = palette.purple, undercurl = true },
+            DiagnosticUnderlineError   = { sp = palette.real_red, undercurl = true },
+            DiagnosticUnderlineHint    = { sp = palette.real_red, undercurl = true },
             DiagnosticUnderlineInfo    = { sp = palette.blue, undercurl = true },
             DiagnosticUnderlineWarn    = { sp = palette.orange, undercurl = true },
             DiagnosticVirtualTextError = { fg = palette.red, bg = palette.bg },
@@ -125,8 +128,8 @@ return {
             DiagnosticVirtualTextInfo  = { fg = palette.blue, bg = palette.bg },
             DiagnosticVirtualTextWarn  = { fg = palette.orange, bg = palette.bg },
 
-            Annotation                 = { fg = palette.light_yellow, bold = true },
-            Attribute                  = { fg = palette.light_yellow, bold = true },
+            Annotation                 = { fg = palette.light_yellow,  },
+            Attribute                  = { fg = palette.light_yellow,  },
             Boolean                    = { fg = palette.purple, bg = palette.none },
             Number                     = { fg = palette.purple, bg = palette.none },
             Float                      = { fg = palette.purple, bg = palette.none },
@@ -136,17 +139,17 @@ return {
             PreCondit                  = { fg = palette.purple, bg = palette.none, italic = true },
             Include                    = { fg = palette.purple, bg = palette.none, italic = true },
             Define                     = { fg = palette.purple, bg = palette.none, italic = true },
-            Conditional                = { fg = palette.red, bg = palette.none, bold = true },
-            Repeat                     = { fg = palette.red, bg = palette.none, bold = true },
+            Conditional                = { fg = palette.red, bg = palette.none,  },
+            Repeat                     = { fg = palette.red, bg = palette.none,  },
             Keyword                    = { fg = palette.red, bg = palette.none, italic = true },
             Typedef                    = { fg = palette.red, bg = palette.none, italic = true },
             Exception                  = { fg = palette.red, bg = palette.none, italic = true },
             Statement                  = { fg = palette.red, bg = palette.none, italic = true },
-            StorageClass               = { fg = palette.orange, bg = palette.none, bold = true },
-            Title                      = { fg = palette.orange, bg = palette.none, bold = true },
-            Type                       = { fg = palette.yellow, bg = palette.none, bold = true },
-            Function                   = { fg = palette.cyan, bg = palette.none, bold = true },
-            Constant                   = { fg = palette.cyan, bg = palette.none, bold = true },
+            StorageClass               = { fg = palette.orange, bg = palette.none,  },
+            Title                      = { fg = palette.orange, bg = palette.none,  },
+            Type                       = { fg = palette.yellow, bg = palette.none,  },
+            Function                   = { fg = palette.cyan, bg = palette.none,  },
+            Constant                   = { fg = palette.cyan, bg = palette.none,  },
             Error                      = { fg = palette.red, bg = palette.none },
             Tag                        = { fg = palette.orange, bg = palette.none },
             Label                      = { fg = palette.orange, bg = palette.none },
@@ -241,7 +244,6 @@ return {
             GitSignsDeleteNr           = { fg = palette.red, bg = palette.bg0 },
             GitSignsDeletePreview      = { link = 'DiffDelete' },
             GitSignsDeleteVirtLn       = { link = 'DiffDelete' },
-
             TelescopeMatching          = { bold = true },
         }
 

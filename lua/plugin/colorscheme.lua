@@ -3,7 +3,7 @@ local colorscheme = require("plugin.noctis_theme")
 
 -- define the palette (you can pick any preset or make your own)
 local palette = {
-    bg0          = '#0E2428', -- Text
+    bg0          = '#052529', -- Text
     bg1          = '#1A3C43', -- CursorLine/Sign
     bg2          = '#0A1C1F', -- Pmenu
     bg3          = '#1A3C43', -- StatusLine
@@ -11,9 +11,9 @@ local palette = {
     bg_red       = '#3A2727',
     bg_green     = '#2B4234',
     bg_blue      = '#193B41',
-    fg           = '#B7C9CC',
+    fg           = '#b2cacd',
     red          = '#D17B9A',
-    orange       = '#D66D41',
+    orange       = '#e66533',
     yellow       = '#DDB988',
     green        = '#78E0A6',
     cyan         = '#4CA1B3',
@@ -22,15 +22,20 @@ local palette = {
     grey         = '#455B5F',
     light_grey   = '#64848A',
     light_yellow = '#DDB988',
+    light_blue   = '#49d6e9',
+    pink         = '#df769b',
     none         = 'NONE',
 }
 
 -- optional overrides
 local override = {
-    Type     = { fg = palette.blue, bold = true },
-    Include  = { fg = palette.red, bold = true },
-    Keyword  = { fg = palette.orange, bold = true },
-    Operator = { fg = palette.red, bold = true },
+    Type      = { fg = palette.blue, bold = true },
+    Include   = { fg = palette.red, bold = true },
+    Keyword   = { fg = palette.pink, bold = true },
+    Operator  = { fg = palette.red, bold = true },
+    Structure = { fg = palette.light_blue, bold = true },
+    Delimiter = { fg = palette.pink, bold = true },
+
 }
 
 -- enable true colors

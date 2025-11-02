@@ -35,13 +35,23 @@ function M.config()
          map("n", "<leader>ca", vim.lsp.buf.code_action, opts)
       end,
    })
+
+
+   local function get_root(markers)
+      local root = vim.fs.find(markers, { upward = true })[1]
+      return root and vim.fs.dirname(root) or vim.fn.getcwd()
+   end
+
+   ---------------------------------------------------------------------------
+   -- Lua
+   ---------------------------------------------------------------------------
    vim.api.nvim_create_autocmd("FileType", {
       pattern = "lua",
       callback = function()
          vim.lsp.start({
             name = "lua_ls",
             cmd = { "lua-language-server" },
-            root_dir = vim.fs.dirname(vim.fs.find({ ".luarc.json", ".git" }, { upward = true })[1]),
+            root_dir = get_root({ ".luarc.json", ".git" }),
             settings = {
                Lua = {
                   diagnostics = { globals = { "vim" } },
@@ -52,13 +62,16 @@ function M.config()
       end,
    })
 
+   ---------------------------------------------------------------------------
+   -- Rust
+   ---------------------------------------------------------------------------
    vim.api.nvim_create_autocmd("FileType", {
       pattern = "rust",
       callback = function()
          vim.lsp.start({
             name = "rust_analyzer",
             cmd = { "rust-analyzer" },
-            root_dir = vim.fs.dirname(vim.fs.find({ "Cargo.toml", ".git" }, { upward = true })[1]),
+            root_dir = get_root({ "Cargo.toml", ".git" }),
             settings = {
                ["rust-analyzer"] = {
                   cargo = { allFeatures = true },
@@ -69,13 +82,54 @@ function M.config()
       end,
    })
 
+   ---------------------------------------------------------------------------
+   -- C / C++
+   ---------------------------------------------------------------------------
    vim.api.nvim_create_autocmd("FileType", {
       pattern = { "c", "cpp" },
       callback = function()
          vim.lsp.start({
             name = "clangd",
             cmd = { "clangd" },
-            root_dir = vim.fs.dirname(vim.fs.find({ "compile_commands.json", ".git" }, { upward = true })[1]),
+            root_dir = get_root({ "compile_commands.json", ".git" }),
+         })
+      end,
+   })
+
+   ---------------------------------------------------------------------------
+   -- TypeScript / JavaScript
+   ---------------------------------------------------------------------------
+   vim.api.nvim_create_autocmd("FileType", {
+      pattern = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+      callback = function()
+         if vim.lsp.get_clients({ name = "tsserver" })[1] then return end
+         vim.lsp.start({
+            name = "tsserver",
+            cmd = { "typescript-language-server", "--stdio" },
+            root_dir = get_root({ "tsconfig.json", "package.json", ".git" }),
+            init_options = { hostInfo = "neovim" },
+            single_file_support = true,
+         })
+      end,
+   })
+
+   ---------------------------------------------------------------------------
+   -- Vue (Volar)
+   ---------------------------------------------------------------------------
+   vim.api.nvim_create_autocmd("FileType", {
+      pattern = "vue",
+      callback = function()
+         if vim.lsp.get_clients({ name = "volar" })[1] then return end
+         vim.lsp.start({
+            name = "volar",
+            cmd = { "vue-language-server", "--stdio" },
+            root_dir = get_root({ "package.json", "tsconfig.json", "vue.config.js", ".git" }),
+            single_file_support = true,
+            init_options = {
+               typescript = {
+                  tsdk = vim.fn.stdpath("data") .. "/mason/packages/typescript/lib", -- adjust if needed
+               },
+            },
          })
       end,
    })
