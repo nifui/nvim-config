@@ -3,9 +3,9 @@ local M = {
     dependencies = { 'nvim-tree/nvim-web-devicons' }
 }
 function M.config()
-   require("lualine").setup({
+    require("lualine").setup({
         options = {
-            theme="tomorrow_night"
+            theme = "tomorrow_night"
         }
     })
 end
