@@ -84,6 +84,7 @@ local override = {
     DiagnosticVirtualTextHint                   = { fg = palette.yolk_yellow, bg = palette.bg },
     DiagnosticVirtualTextInfo                   = { fg = palette.light_blue, bg = palette.bg },
     DiagnosticVirtualTextWarn                   = { fg = palette.orange, bg = palette.bg },
+    Statement                                   = { fg = palette.pink },
 }
 vim.api.nvim_set_hl(0, "CmpItemKind", { fg = palette.br_highlight_2 })
 vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = palette.purple })
