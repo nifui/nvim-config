@@ -95,39 +95,50 @@ function M.config()
          })
       end,
    })
-
-   ---------------------------------------------------------------------------
-   -- TypeScript / JavaScript
-   ---------------------------------------------------------------------------
-   vim.api.nvim_create_autocmd("FileType", {
-      pattern = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+   vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile", "FileType" }, {
+      pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
       callback = function()
-         if vim.lsp.get_clients({ name = "tsserver" })[1] then return end
+         if vim.lsp.get_clients({ name = "vtsls" })[1] then
+            return
+         end
          vim.lsp.start({
-            name = "tsserver",
-            cmd = { "typescript-language-server", "--stdio" },
+            name = "vtsls",
+            cmd = { "vtsls", "--stdio" },
             root_dir = get_root({ "tsconfig.json", "package.json", ".git" }),
-            init_options = { hostInfo = "neovim" },
+            capabilities = lsp_defaults,
             single_file_support = true,
+            init_options = {
+               hostInfo = "neovim",
+            },
          })
       end,
    })
 
-   ---------------------------------------------------------------------------
-   -- Vue (Volar)
-   ---------------------------------------------------------------------------
-   vim.api.nvim_create_autocmd("FileType", {
-      pattern = "vue",
+   vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile", "FileType" }, {
+      pattern = "*.vue",
       callback = function()
-         if vim.lsp.get_clients({ name = "volar" })[1] then return end
+         if vim.lsp.get_clients({ name = "vue_ls" })[1] then
+            return
+         end
+         print("detected vue file attempting to run lsp")
+         local mason_path = vim.fn.stdpath("data") .. "/mason/packages"
+         local vue_plugin = {
+            name = "@vue/typescript-plugin",
+            location = mason_path .. "/vue-language-server/node_modules/@vue/typescript-plugin",
+            languages = { "vue" },
+            configNamespace = "typescript",
+         }
+
          vim.lsp.start({
-            name = "volar",
+            name = "vue_ls",
             cmd = { "vue-language-server", "--stdio" },
             root_dir = get_root({ "package.json", "tsconfig.json", "vue.config.js", ".git" }),
+            capabilities = lsp_defaults,
             single_file_support = true,
             init_options = {
+               plugins = { vue_plugin },
                typescript = {
-                  tsdk = vim.fn.stdpath("data") .. "/mason/packages/typescript/lib", -- adjust if needed
+                  tsdk = mason_path .. "/typescript/lib",
                },
             },
          })

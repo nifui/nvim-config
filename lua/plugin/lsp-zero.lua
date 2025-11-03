@@ -2,11 +2,15 @@ local M = {
    "neovim/nvim-lspconfig",                -- required plugin identifier
    event = { "BufReadPre", "BufNewFile" }, -- optional lazy-load trigger
 }
-
+local function get_root(markers)
+   local root = vim.fs.dirname(vim.fs.find(markers, { upward = true })[1])
+   return root or vim.loop.cwd()
+end
 function M.config()
    local lsp_defaults = vim.lsp.protocol.make_client_capabilities()
    local cmp_caps = require("cmp_nvim_lsp").default_capabilities()
    lsp_defaults = vim.tbl_deep_extend("force", lsp_defaults, cmp_caps)
+
 
    -- Rust
    vim.lsp.start({
@@ -21,41 +25,8 @@ function M.config()
       },
       capabilities = lsp_defaults,
    })
-   vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-      pattern = { "*.ts", "*.tsx", "*.js", "*.jsx" },
-      callback = function()
-         if vim.lsp.get_clients({ name = "tsserver" })[1] then
-            return
-         end
-         vim.lsp.start({
-            name = "tsserver",
-            cmd = { "typescript-language-server", "--stdio" },
-            root_dir = get_root({ "tsconfig.json", "package.json", ".git" }),
-            capabilities = lsp_defaults,
-            single_file_support = true,
-            init_options = {
-               hostInfo = "neovim",
-            },
-         })
-      end,
-   })
-   vim.api.nvim_create_autocmd({ "BufReadPre", "BufNewFile" }, {
-      pattern = "*.vue",
-      callback = function()
-         vim.lsp.start({
-            name = "volar",
-            cmd = { "vue-language-server", "--stdio" },
-            root_dir = get_root({ "package.json", "tsconfig.json", "vue.config.js", ".git" }),
-            capabilities = lsp_defaults,
-            single_file_support = true,
-            init_options = {
-               typescript = {
-                  tsdk = vim.fn.stdpath("data") .. "/mason/packages/typescript/lib", -- optional if using Mason
-               },
-            },
-         })
-      end,
-   })
+
+
    vim.lsp.inlay_hint.enable(true)
 
    vim.diagnostic.config({
