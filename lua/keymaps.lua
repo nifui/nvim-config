@@ -1,10 +1,11 @@
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.keymap.set('n', '<leader>tt', ':bnext<CR>', { desc = 'Go to next buffer (e.g., terminal)' })
 -- go back to pre existing terminal
+vim.keymap.set('n', '<leader>te', '<cmd>ToggleTerm direction=float<CR>', { noremap = true, silent = true })
 
 vim.g.mapleader = " "
 -- telescope keymaps
-
+-- Function to toggle a floating terminal
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>pf", builtin.find_files)
 vim.keymap.set("n", "<C-g>", builtin.git_files)
@@ -57,7 +58,8 @@ vim.keymap.set("n", "<leader>a", mark.add_file)
 vim.keymap.set("n", "<C-j>", ui.nav_next)
 vim.keymap.set("n", "<C-k>", ui.nav_prev)
 vim.keymap.set("n", "<C-t>", function() term.gotoTerminal(1) end)
-
+vim.keymap.set("n", "<leader>qw", ":q<CR>")
+vim.keymap.set("n", "<leader>vs", ":vsplit<CR>")
 -- undotree keymaps
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
@@ -72,7 +74,7 @@ vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
 
 -- gen keymaps
 -- nvim branch keymaps
-vim.keymap.set('n', '<leader>q', '<cmd>NvimTreeToggle<CR>')
+vim.keymap.set('n', '<leader>qq', '<cmd>NvimTreeToggle<CR>')
 
 
 -- stupid personal preference stuff

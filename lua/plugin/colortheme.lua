@@ -53,15 +53,19 @@ local override = {
     ["@lsp.type.const.rust"]                    = { fg = palette.constant_orang, bold = false },
     ["@lsp.typemod.function.declaration.rust"]  = { fg = palette.cyan },
     ["@lsp.import.rust"]                        = { fg = palette.orange },
-    ["@keyword.modifier.rust"]                  = { fg = palette.orange },
+    ["@keyword.modifier.rust"]                  = { fg = palette.pink },
     ["@keyword.function.rust"]                  = { fg = palette.orange, bold = true },
     ["@keyword.import.rust"]                    = { fg = palette.orange },
     ["@lsp.type.interface.rust"]                = { fg = palette.brown_orange },
     ["@lsp.type.typeAlias.rust"]                = { fg = palette.brown_orange },
     ["@lsp.type.enumMember.rust"]               = { fg = palette.brown_orange },
     ["@punctuation.bracket.rust"]               = { fg = palette.white },
-    ["@operator.rust"]                          = { fg = palette.yellow },
+    ["@operator.rust"]                          = { fg = palette.br_highlight_2 },
     ["@lsp.type.enum.rust"]                     = { fg = palette.brown_orange },
+    ["@lsp.type.method.rust"]                   = { fg = palette.cyan },
+    ["@number.float"]                           = { fg = palette.purple },
+    ["@number.rust"]                            = { fg = palette.purple },
+    ["@boolean.rust"]                           = { fg = palette.purple },
     Delimiter                                   = { fg = palette.pink },
     SpecialChar                                 = { fg = palette.white },
     DiagnosticError                             = { fg = palette.real_red },
@@ -86,13 +90,22 @@ local override = {
     DiagnosticVirtualTextWarn                   = { fg = palette.orange, bg = palette.bg },
     Statement                                   = { fg = palette.pink },
 }
-vim.api.nvim_set_hl(0, "CmpItemKind", { fg = palette.br_highlight_2 })
-vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = palette.purple })
-vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = palette.orange })
-vim.api.nvim_set_hl(0, "CmpItemKindClass", { fg = palette.green })
-vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = palette.cyan })
-vim.api.nvim_set_hl(0, "CmpItemMenu", { fg = palette.light_grey, italic = true })
-
+vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = "#C586C0" })
+vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = "#C586C0" })
+vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = "#9CDCFE" })
+vim.api.nvim_set_hl(0, "CmpItemKindField", { fg = "#9CDCFE" })
+vim.api.nvim_set_hl(0, "CmpItemKindClass", { fg = "#4EC9B0" })
+vim.api.nvim_set_hl(0, "CmpItemKindInterface", { fg = "#4EC9B0" })
+vim.api.nvim_set_hl(0, "CmpItemKindText", { fg = "#CE9178" })
+vim.api.nvim_set_hl(0, "CmpItemKindSnippet", { fg = "#D4D4D4" })
+vim.api.nvim_set_hl(0, "CmpItemKindKeyword", { fg = "#D7BA7D" })
+vim.api.nvim_set_hl(0, "CmpItemKindModule", { fg = "#FFD700" })
+vim.api.nvim_set_hl(0, "CmpItemKindFile", { fg = "#569CD6" })
+vim.api.nvim_set_hl(0, "CmpItemKindFolder", { fg = "#569CD6" })
+vim.api.nvim_set_hl(0, "CmpItemKindEnum", { fg = "#B5CEA8" })
+vim.api.nvim_set_hl(0, "IblIndent", { fg = "#3A3A3A", nocombine = true })
+vim.api.nvim_set_hl(0, "IblWhitespace", { fg = "#3A3A3A", nocombine = true })
+vim.api.nvim_set_hl(0, "IblScope", { fg = "#FFD700" }) -- bright gold for current scope
 vim.o.termguicolors = true
 vim.cmd("syntax on")
 vim.opt.background = "dark"

@@ -9,6 +9,7 @@ vim.api.nvim_create_user_command("ReloadTheme", function()
 end, {})
 
 spec("plugin.lualine")
+--should probably configure this a bit more just using a template rn
 spec("plugin.treesitter")
 spec("plugin.telescope")
 --spec("plugin.fugitive")
@@ -19,10 +20,12 @@ spec("plugin.mason")
 spec("plugin.cmp")
 spec("plugin.lsp-zero")
 --spec("plugin.gen")
+spec("plugin.toggleterm")
 spec("plugin.nvim-autopairs")
 spec("plugin.smear_cursor")
 --spec("plugin.lspsaga")
 spec("plugin.nvim-tree")
-spec("plugin.alpha-nvim")
+spec("plugin.indentline")
+--spec("plugin.alpha-nvim")
 require "plugin.lazy"
 require "keymaps"

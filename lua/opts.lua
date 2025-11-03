@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 vim.opt.nu = true
 vim.opt.relativenumber = true
+vim.opt.iskeyword:remove('.')
 
 -- Tab / indent
 vim.opt.tabstop = 3
