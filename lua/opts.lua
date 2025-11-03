@@ -38,8 +38,9 @@ vim.opt.colorcolumn = ""
 -- Handle undo directory cross-platform
 if vim.loop.os_uname().sysname == "Windows_NT" then
    vim.opt.undodir = os.getenv("UserProfile") .. "\\.vim\\undodir"
-   vim.opt.shell = "powershell"
-   vim.opt.shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command"
+   vim.opt.shell = "powershell" 
+   --prevent the shell from autoexiting s
+   vim.opt.shellcmdflag = "-NoLogo -NoExit -NoProfile -ExecutionPolicy RemoteSigned -Command"
 else
    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
    -- No need to set shell on Unix — leave default (usually bash/sh)
