@@ -24,8 +24,14 @@ spec("plugin.toggleterm")
 spec("plugin.nvim-autopairs")
 spec("plugin.smear_cursor")
 --spec("plugin.lspsaga")
+spec("plugin.md")
 spec("plugin.nvim-tree")
 spec("plugin.indentline")
+-- should probably add a setting that launches a minimal nvim setup for low battery life on laptop
+vim.cmd("highlight! IblIndent guifg=#5c4a72 gui=nocombine")
+vim.cmd("highlight! IblWhitespace guifg=#d16cbd gui=nocombine")
+vim.cmd("highlight! IblScope guifg=#B22222 gui=nocombine")
+
 --spec("plugin.alpha-nvim")
 require "plugin.lazy"
 require "keymaps"

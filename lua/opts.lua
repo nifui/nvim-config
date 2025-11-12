@@ -29,7 +29,6 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 50
-
 -- Undo / swap
 vim.opt.swapfile = true
 vim.opt.backup = true
@@ -38,7 +37,7 @@ vim.opt.colorcolumn = ""
 -- Handle undo directory cross-platform
 if vim.loop.os_uname().sysname == "Windows_NT" then
    vim.opt.undodir = os.getenv("UserProfile") .. "\\.vim\\undodir"
-   vim.opt.shell = "powershell" 
+   vim.opt.shell = "powershell"
    --prevent the shell from autoexiting s
    vim.opt.shellcmdflag = "-NoLogo -NoExit -NoProfile -ExecutionPolicy RemoteSigned -Command"
 else

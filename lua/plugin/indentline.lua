@@ -16,8 +16,8 @@ function M.config()
         },
         scope = {
             enabled = true,        -- highlight the current scope
-            show_start = true,     -- draw a line at the start of the scope
-            show_end = true,       -- you can enable this too if you want end markers
+            show_start = false,    -- draw a line at the start of the scope
+            show_end = false,      -- you can enable this too if you want end markers
             highlight = "IblScope" -- the highlight group used for the current scope
         },
         exclude = {

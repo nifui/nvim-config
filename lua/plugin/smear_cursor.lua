@@ -1,6 +1,5 @@
 return {
     "sphamba/smear-cursor.nvim",
-
     opts = {
         smear_between_buffers = true,
         smear_between_neighbor_lines = true,
@@ -8,17 +7,17 @@ return {
         legacy_computing_symbols_support = true,
         smear_insert_mode = true,
 
-        cursor_color = "#00d1d13",
+        cursor_color = "#00d1d1",
 
-        -- animation tuning
-        stiffness = 0.2,          -- lower = smoother
-        trailing_stiffness = 0.1, -- keep lower than stiffness
-        damping = 0.15,           -- reduces oscillation
-        trailing_exponent = 2,    -- smoother decay curve
+        -- smoother animation tuning
+        stiffness = 0.35,          -- slightly higher for more responsiveness
+        trailing_stiffness = 0.15, -- keep tail smooth and delayed
+        damping = 0.25,            -- more damping = less bounce
+        trailing_exponent = 1.6,   -- smoother decay curve
+        gamma = 0.9,               -- makes color blending smoother
 
         -- rendering tweaks
-        never_draw_over_target = false, -- let it blend more naturally
-        hide_target_hack = false,       -- can cause a snap at rest
-        gamma = 1.0,
+        never_draw_over_target = false,
+        hide_target_hack = false,
     }
 }

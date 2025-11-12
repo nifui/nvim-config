@@ -1,10 +1,10 @@
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.g.mapleader = " "
 vim.keymap.set('n', '<leader>tt', ':bnext<CR>', { desc = 'Go to next buffer (e.g., terminal)' })
 -- go back to pre existing terminal
-vim.keymap.set('n', '<leader>te', '<cmd>ToggleTerm direction=float<CR>', { noremap = true, silent = true })
-
-vim.g.mapleader = " "
+vim.keymap.set('n', '<leader>te', '<cmd>ToggleTerm<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true })
 -- telescope keymaps
+
 -- Function to toggle a floating terminal
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>pf", builtin.find_files)
@@ -60,6 +60,7 @@ vim.keymap.set("n", "<C-k>", ui.nav_prev)
 vim.keymap.set("n", "<C-t>", function() term.gotoTerminal(1) end)
 vim.keymap.set("n", "<leader>qw", ":q<CR>")
 vim.keymap.set("n", "<leader>vs", ":vsplit<CR>")
+
 -- undotree keymaps
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
@@ -79,3 +80,7 @@ vim.keymap.set('n', '<leader>qq', '<cmd>NvimTreeToggle<CR>')
 
 -- stupid personal preference stuff
 vim.keymap.set('n', "<leader>s", ':w<CR>')
+
+--markdown notes taking
+vim.keymap.set('n', "<leader>md", ':MarkdownPreview<CR>')
+vim.keymap.set('n', "<leader>cd", ':MarkdownPreviewStop<CR>')
