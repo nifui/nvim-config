@@ -113,23 +113,3 @@ vim.opt.background = "dark"
 vim.g.colors_name = "noctis"
 -- apply the palette
 colorscheme.from_palette(palette, override)
--- Make background transparent
-local transparent_groups = {
-    "Normal",
-    "NormalNC",
-    "NormalFloat",
-    "FloatBorder",
-    "SignColumn",
-    "LineNr",
-    "Folded",
-    "NonText",
-    "EndOfBuffer",
-    "MsgArea",
-    "TelescopeNormal",
-    "TelescopeBorder",
-}
-
-for _, group in ipairs(transparent_groups) do
-    vim.api.nvim_set_hl(0, group, { bg = "NONE" })
-end
-
