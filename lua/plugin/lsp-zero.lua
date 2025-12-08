@@ -25,8 +25,20 @@ function M.config()
       },
       capabilities = lsp_defaults,
    })
-
-
+   vim.lsp.start({
+      name = "asm_lsp",
+      cmd = { "asm-lsp" },
+      root_dir = get_root({".git", "Makefile", "makefile"}),
+      filetypes = { "asm", "s", "S" },
+      capabilities = lsp_defaults,
+      settings = {
+         asm_lsp = {
+            -- options:
+            -- dialect = "intel" | "att"
+            -- includePaths = { "include/" }
+         },
+      },
+   })
    vim.lsp.inlay_hint.enable(true)
 
    vim.diagnostic.config({
