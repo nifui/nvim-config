@@ -25,20 +25,34 @@ function M.config()
       },
       capabilities = lsp_defaults,
    })
+   -- vim.lsp.start({
+   --    name = "asm_lsp",
+   --    cmd = { "asm-lsp" },
+   --    root_dir = get_root({ ".git", "Makefile", "makefile" }),
+   --    filetypes = { "asm", "s", "S" },
+   --    capabilities = lsp_defaults,
+   --    settings = {
+   --       asm_lsp = {
+   --          -- options:
+   --          -- dialect = "intel" | "att"
+   --          -- includePaths = { "include/" }
+   --       },
+   --    },
+   -- })
+   -- C/C++/Objective-C — ccls
    vim.lsp.start({
-      name = "asm_lsp",
-      cmd = { "asm-lsp" },
-      root_dir = get_root({".git", "Makefile", "makefile"}),
-      filetypes = { "asm", "s", "S" },
+      name = "ccls",
+      cmd = { "ccls" }, -- make sure ccls is installed & in PATH
+      root_dir = get_root({ "compile_commands.json", ".ccls", ".git" }),
+      filetypes = { "c", "cc", "cpp", "cxx", "h", "hpp" },
       capabilities = lsp_defaults,
-      settings = {
-         asm_lsp = {
-            -- options:
-            -- dialect = "intel" | "att"
-            -- includePaths = { "include/" }
+      init_options = {
+         cache = {
+            directory = ".ccls-cache",
          },
       },
    })
+
    vim.lsp.inlay_hint.enable(true)
 
    vim.diagnostic.config({
