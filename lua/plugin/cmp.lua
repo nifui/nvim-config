@@ -8,6 +8,7 @@ return {
         "hrsh7th/cmp-buffer",       -- buffer words
         "hrsh7th/cmp-path",         -- file paths
         "onsails/lspkind.nvim",     -- pretty icons
+
     },
     config = function()
         local cmp = require("cmp")
@@ -43,13 +44,6 @@ return {
                     end
                 end, { "i", "s" }),
             }),
-            formatting = {
-                format = lspkind.cmp_format({
-                    mode = "symbol_text",
-                    maxwidth = 50,
-                    ellipsis_char = "...",
-                }),
-            },
             sources = cmp.config.sources({
                 { name = "nvim_lsp", priority = 1000 },
                 { name = "luasnip",  priority = 900 },
@@ -94,6 +88,9 @@ return {
             experimental = {
                 ghost_text = true, -- shows faded inline suggestion
             },
+        })
+        cmp.setup.filetype("tex", {
+
         })
     end,
 }

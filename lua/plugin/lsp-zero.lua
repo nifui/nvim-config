@@ -19,8 +19,18 @@ function M.config()
       root_dir = vim.fs.dirname(vim.fs.find({ "Cargo.toml", ".git" }, { upward = true })[1]),
       settings = {
          ["rust-analyzer"] = {
-            cargo = { allFeatures = true },
-            checkOnSave = true,
+            cargo = {
+               --change back to allFEature = true if breaks
+               buildScripts = {
+                  enable = false,
+               },
+            },
+            procMacro = {
+               enable = false, -- if you can live without it
+            },
+            checkOnSave = {
+               command = "check", -- instead of clippy
+            },
          },
       },
       capabilities = lsp_defaults,
