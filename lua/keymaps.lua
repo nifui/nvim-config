@@ -87,3 +87,4 @@ vim.keymap.set('n', "<leader>s", ':w<CR>')
 --markdown notes taking
 vim.keymap.set('n', "<leader>md", ':MarkdownPreview<CR>')
 vim.keymap.set('n', "<leader>cd", ':MarkdownPreviewStop<CR>')
+vim.keymap.set("n", "<leader>pp", builtin.find_files, { desc = "Find files" })
