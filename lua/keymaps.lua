@@ -82,7 +82,7 @@ vim.keymap.set('n', '<leader>qq', '<cmd>NvimTreeToggle<CR>')
 
 
 -- stupid personal preference stuff
-vim.keymap.set('n', "<leader>s", ':w<CR>')
+vim.keymap.set('n', "<leader>w", ':w<CR>')
 
 --markdown notes taking
 vim.keymap.set('n', "<leader>md", ':MarkdownPreview<CR>')

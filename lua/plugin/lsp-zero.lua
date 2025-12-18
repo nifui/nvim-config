@@ -35,6 +35,7 @@ function M.config()
       },
       capabilities = lsp_defaults,
    })
+
    -- vim.lsp.start({
    --    name = "asm_lsp",
    --    cmd = { "asm-lsp" },

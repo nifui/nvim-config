@@ -1,0 +1,37 @@
+return {
+    bg0            = "#052529",
+    fg             = '#b2cacd',
+    grey_blue      = "#b2cacd",
+    yolk_yellow    = "#ffd700",
+    yellow         = "#ffd700",
+    orange         = "#e66533",
+    tan            = "#e4b781",
+    pink           = "#df769b",
+    mint_green     = "#49e9a6",
+    brown_orange   = "#d67e5c",
+    br_highlight_0 = "#ffd700",
+    br_highlight_1 = "#da70d6",
+    br_highlight_2 = "#179fff",
+    purple         = "#7060eb",
+    cyan           = "#16a3b6",
+    monotone       = "#5b858b",
+    bg1            = '#1A3C43', -- CursorLine/Sign
+    bg2            = '#0A1C1F', -- Pmenu
+    bg3            = '#1A3C43', -- StatusLine
+    bg4            = '#0A1C1F', -- Tabline/Winbar
+    bg_red         = '#3A2727',
+    bg_green       = '#2B4234',
+    bg_blue        = '#193B41',
+    red            = '#D17B9A',
+    green          = '#78E0A6',
+    blue           = '#64AAE4',
+    grey           = '#455B5F',
+    light_grey     = '#64848A',
+    light_yellow   = '#DDB988',
+    light_blue     = '#49d6e9',
+    none           = 'NONE',
+    constant_orang = '#d59718',
+    NEON_GREEN     = '#39FF14',
+    white          = '#FFFFFF',
+    real_red       = '#ff0000',
+}

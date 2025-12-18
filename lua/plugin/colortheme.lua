@@ -1,4 +1,22 @@
-local colorscheme = require("plugin.noctis_theme")
+local highlight = vim.api.nvim_set_hl;
+local function from_palette(palette, override)
+    local highlight_groups = {
+        Normal      = { fg = palette.fg, bg = palette.bg0 },
+        NormalNC    = { fg = palette.fg, bg = palette.b0 },
+        Terminal    = { fg = palette.fg, bg = palette.bg0 },
+        EndOfBuffer = { fg = palette.bg0, bg = palette.bg0 },
+    }
+
+    for group, config in pairs(highlight_groups) do
+        highlight(0, group, config)
+    end
+
+    if override ~= nil then
+        for group, config in pairs(override) do
+            highlight(0, group, config)
+        end
+    end
+end
 
 local palette = {
     bg0            = "#052529",
@@ -37,60 +55,60 @@ local palette = {
     white          = '#FFFFFF',
     real_red       = '#ff0000',
 }
+local function deep_merge(a, b)
+    local result = {}
+
+    for k, v in pairs(a or {}) do
+        result[k] = v
+    end
+
+    for k, v in pairs(b or {}) do
+        if type(v) == "table" and type(result[k]) == "table" then
+            result[k] = deep_merge(result[k], v)
+        else
+            result[k] = v
+        end
+    end
+
+    return result
+end
+
+local function Merge(...)
+    local result = {}
+    for _, tbl in ipairs { ... } do
+        result = deep_merge(result, tbl)
+    end
+    return result
+end
+
+
 local override = {
-    Operator                                    = { fg = palette.pink },
-    ["@lsp.type.namespace.rust"]                = { fg = palette.light_blue, },
-    ["@lsp.type.function.rust"]                 = { fg = palette.cyan },
-    ["@lsp.mod.public.rust"]                    = { fg = palette.cyan },
-    ["@lsp.type.parameter.rust"]                = { fg = palette.tan },
-    ["@lsp.typemod.variable.declaration.rust"]  = { fg = palette.tan },
-    ["@lsp.typemod.parameter.declaration.rust"] = { fg = palette.tan },
-    ["@lsp.type.builtinType.rust"]              = { fg = palette.brown_orange, italic = true },
-    ["@lsp.type.macro.rust"]                    = { fg = palette.cyan },
-    ["@lsp.type.variable.rust"]                 = { fg = palette.tan },
-    ["@lsp.type.property.rust"]                 = { fg = palette.grey_blue },
-    ["@lsp.type.struct.rust"]                   = { fg = palette.brown_orange },
-    ["@lsp.type.const.rust"]                    = { fg = palette.constant_orang, bold = false },
-    ["@lsp.typemod.function.declaration.rust"]  = { fg = palette.cyan },
-    ["@lsp.import.rust"]                        = { fg = palette.orange },
-    ["@keyword.modifier.rust"]                  = { fg = palette.pink },
-    ["@keyword.function.rust"]                  = { fg = palette.orange, bold = true },
-    ["@keyword.import.rust"]                    = { fg = palette.orange },
-    ["@lsp.type.interface.rust"]                = { fg = palette.brown_orange },
-    ["@lsp.type.typeAlias.rust"]                = { fg = palette.brown_orange },
-    ["@lsp.type.enumMember.rust"]               = { fg = palette.brown_orange },
-    ["@punctuation.bracket.rust"]               = { fg = palette.br_highlight_1 },
-    ["@operator.rust"]                          = { fg = palette.br_highlight_2 },
-    ["@lsp.type.enum.rust"]                     = { fg = palette.brown_orange },
-    ["@lsp.type.method.rust"]                   = { fg = palette.cyan },
-    ["@number.float"]                           = { fg = palette.purple },
-    ["@number.rust"]                            = { fg = palette.purple },
-    ["@boolean.rust"]                           = { fg = palette.purple },
-    ["@lsp.type.attributeBracket.rust"]         = { fg = palette.yolk_yellow },
-    Delimiter                                   = { fg = palette.pink },
-    SpecialChar                                 = { fg = palette.white },
-    DiagnosticError                             = { fg = palette.real_red },
-    DiagnosticHint                              = { fg = palette.brown_orange },
-    DiagnosticInfo                              = { fg = palette.light_blue },
-    DiagnosticWarn                              = { fg = palette.brown_orange },
-    DiagnosticFloatingError                     = { link = 'DiagnosticError' },
-    DiagnosticFloatingHint                      = { link = 'DiagnosticHint' },
-    DiagnosticFloatingInfo                      = { link = 'DiagnosticInfo' },
-    DiagnosticFloatingWarn                      = { link = 'DiagnosticWarn' },
-    DiagnosticSignError                         = { link = 'DiagnosticError' },
-    DiagnosticSignHint                          = { link = 'DiagnosticHint' },
-    DiagnosticSignInfo                          = { link = 'DiagnosticInfo' },
-    DiagnosticSignWarn                          = { link = 'DiagnosticWarn' },
-    DiagnosticUnderlineError                    = { sp = palette.real_red, undercurl = true },
-    DiagnosticUnderlineHint                     = { sp = palette.brown_orange, undercurl = true },
-    DiagnosticUnderlineInfo                     = { sp = palette.light_blue, undercurl = true },
-    DiagnosticUnderlineWarn                     = { sp = palette.brown_orange, undercurl = true },
-    DiagnosticVirtualTextError                  = { fg = palette.real_red, bg = palette.bg },
-    DiagnosticVirtualTextHint                   = { fg = palette.brown_orange, bg = palette.bg },
-    DiagnosticVirtualTextInfo                   = { fg = palette.light_blue, bg = palette.bg },
-    DiagnosticVirtualTextWarn                   = { fg = palette.brown_orange, bg = palette.bg },
-    Statement                                   = { fg = palette.pink },
+    Operator                   = { fg = palette.pink },
+    Delimiter                  = { fg = palette.pink },
+    SpecialChar                = { fg = palette.white },
+    DiagnosticError            = { fg = palette.real_red },
+    DiagnosticHint             = { fg = palette.brown_orange },
+    DiagnosticInfo             = { fg = palette.light_blue },
+    DiagnosticWarn             = { fg = palette.brown_orange },
+    DiagnosticFloatingError    = { link = 'DiagnosticError' },
+    DiagnosticFloatingHint     = { link = 'DiagnosticHint' },
+    DiagnosticFloatingInfo     = { link = 'DiagnosticInfo' },
+    DiagnosticFloatingWarn     = { link = 'DiagnosticWarn' },
+    DiagnosticSignError        = { link = 'DiagnosticError' },
+    DiagnosticSignHint         = { link = 'DiagnosticHint' },
+    DiagnosticSignInfo         = { link = 'DiagnosticInfo' },
+    DiagnosticSignWarn         = { link = 'DiagnosticWarn' },
+    DiagnosticUnderlineError   = { sp = palette.real_red, undercurl = true },
+    DiagnosticUnderlineHint    = { sp = palette.brown_orange, undercurl = true },
+    DiagnosticUnderlineInfo    = { sp = palette.light_blue, undercurl = true },
+    DiagnosticUnderlineWarn    = { sp = palette.brown_orange, undercurl = true },
+    DiagnosticVirtualTextError = { fg = palette.real_red, bg = palette.bg },
+    DiagnosticVirtualTextHint  = { fg = palette.brown_orange, bg = palette.bg },
+    DiagnosticVirtualTextInfo  = { fg = palette.light_blue, bg = palette.bg },
+    DiagnosticVirtualTextWarn  = { fg = palette.brown_orange, bg = palette.bg },
+    Statement                  = { fg = palette.pink },
 }
+vim.api.nvim_set_hl(0, "@lsp", {});
 vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = "#C586C0" })
 vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = "#C586C0" })
 vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = "#9CDCFE" })
@@ -112,7 +130,12 @@ vim.cmd("syntax on")
 vim.opt.background = "dark"
 vim.g.colors_name = "noctis"
 -- apply the palette
-colorscheme.from_palette(palette, override)
+local ctheme = require('plugin.lang_themes.c');
+local rusttheme = require('plugin.lang_themes.rust')
+local language_overrides = Merge(override, ctheme, rusttheme);
+
+
+from_palette(palette, language_overrides)
 -- Make background transparent
 local transparent_groups = {
     "Normal",
@@ -132,4 +155,3 @@ local transparent_groups = {
 for _, group in ipairs(transparent_groups) do
     vim.api.nvim_set_hl(0, group, { bg = "NONE" })
 end
-
