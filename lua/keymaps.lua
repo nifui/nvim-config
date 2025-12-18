@@ -38,6 +38,7 @@ vim.keymap.set("n", "<leader>f", function()
 end, { desc = "Simple grep (no ripgrep)" })
 -- lwk dont wanna use dependencies so imma go with this`
 -- fugitive keymaps
+vim.keymap.set("i", "_+", "<Esc>")
 
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 vim.keymap.set("n", "td", function()
