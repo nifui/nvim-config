@@ -30,7 +30,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
 vim.opt.updatetime = 50
 -- Undo / swap
-vim.opt.swapfile = true
+vim.opt.swapfile = false
 vim.opt.backup = true
 vim.opt.undofile = true
 vim.opt.colorcolumn = ""
@@ -44,3 +44,14 @@ else
    vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
    -- No need to set shell on Unix — leave default (usually bash/sh)
 end
+
+-- vscode mimic settings
+
+vim.opt.virtualedit = "onemore"
+vim.opt.whichwrap:append("<,>,[,],h,l")
+vim.opt.scrolloff = 8
+vim.opt.sidescrolloff = 8
+vim.opt.iskeyword:append("-")
+
+vim.opt.smartcase = true
+vim.opt.ignorecase = true

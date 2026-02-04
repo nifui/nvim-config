@@ -14,28 +14,41 @@ vim.keymap.set("n", "<leader>d", function()
       sort_by = "severity", -- sort by severity (errors first)
    })
 end, { desc = "Diagnostics (sorted by severity)" })
-vim.keymap.set("n", "<leader>f", function()
-   local term = vim.fn.input("Grep > ")
-   if term == "" then return end
-   local cmd = table.concat({
-      "grep", "-rnI",
-      "--exclude-dir=.git",
-      "--exclude-dir=target",
-      "--exclude-dir=node_modules",
-      vim.fn.shellescape(term),
-      "."
-   }, " ")
+-- Project-wide keyword search
+vim.keymap.set("n", "<leader>f", builtin.live_grep, { desc = "Find word (project)" })
 
-   local results = vim.fn.systemlist(cmd)
+-- Current buffer only (super fast)
+vim.keymap.set("n", "<leader>fb", builtin.current_buffer_fuzzy_find, { desc = "Find word (buffer)" })
 
-   if vim.v.shell_error ~= 0 or vim.tbl_isempty(results) then
-      print("No matches found.")
-      return
-   end
+-- Optional: search word under cursor
+vim.keymap.set("n", "<leader>fw", function()
+   builtin.live_grep({ default_text = vim.fn.expand("<cword>") })
+end, { desc = "Find word under cursor" })
 
-   vim.cmd("copen")
-   vim.fn.setqflist({}, 'r', { title = 'Grep Results', lines = results })
-end, { desc = "Simple grep (no ripgrep)" })
+
+
+-- vim.keymap.set("n", "<leader>f", function()
+--    local term = vim.fn.input("Grep > ")
+--    if term == "" then return end
+--    local cmd = table.concat({
+--       "grep", "-rnI",
+--       "--exclude-dir=.git",
+--       "--exclude-dir=target",
+--       "--exclude-dir=node_modules",
+--       vim.fn.shellescape(term),
+--       "."
+--    }, " ")
+
+--    local results = vim.fn.systemlist(cmd)
+
+--    if vim.v.shell_error ~= 0 or vim.tbl_isempty(results) then
+--       print("No matches found.")
+--       return
+--    end
+
+--    vim.cmd("copen")
+--    vim.fn.setqflist({}, 'r', { title = 'Grep Results', lines = results })
+-- end, { desc = "Simple grep (no ripgrep)" })
 -- lwk dont wanna use dependencies so imma go with this`
 -- fugitive keymaps
 vim.keymap.set("i", "_+", "<Esc>")
@@ -71,15 +84,15 @@ vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 -- lsp && mason keymaps
 
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-vim.keymap.set("n", "K", vim.lsp.buf.hover)
+vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition)
+vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover)
 vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
 vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
 
 -- gen keymaps
 -- nvim branch keymaps
-vim.keymap.set('n', '<leader>qq', '<cmd>NvimTreeToggle<CR>')
+vim.keymap.set('n', '<leader><Tab>', '<cmd>NvimTreeToggle<CR>')
 
 
 -- stupid personal preference stuff
