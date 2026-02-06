@@ -55,3 +55,4 @@ vim.opt.iskeyword:append("-")
 
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
+vim.opt.clipboard = "unnamedplus"
