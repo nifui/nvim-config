@@ -81,6 +81,10 @@ vim.keymap.set("n", "<leader>ii", ":split<CR>")
 -- undotree keymaps
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
+vim.keymap.set("n", "<C-Up>", "5k")
+vim.keymap.set("n", "<C-Down>", "5j")
+vim.keymap.set("n", "<C-Left>", "b")
+vim.keymap.set("n", "<C-Right>", "w")
 
 -- lsp && mason keymaps
 

@@ -9,7 +9,6 @@ vim.api.nvim_create_user_command("ReloadTheme", function()
 end, {})
 
 spec("plugin.lualine")
---should probably configure this a bit more just using a template rn
 spec("plugin.treesitter")
 spec("plugin.telescope")
 --spec("plugin.fugitive")
@@ -25,7 +24,7 @@ spec("plugin.toggleterm")
 spec("plugin.nvim-autopairs")
 --spec("plugin.smear_cursor")
 --spec("plugin.lspsaga")
-spec("plugin.md")
+-- spec("plugin.md")
 spec("plugin.nvim-tree")
 spec("plugin.indentline")
 -- should probably add a setting that launches a minimal nvim setup for low battery life on laptop

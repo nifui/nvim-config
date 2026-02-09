@@ -5,10 +5,11 @@ return {
             handle = {
                 color = "#444444",
                 blend = 20,
+                width = 3,
             },
             marks = {
                 Cursor = {
-                    text = "-",
+                    text = "█",
                     color = "#1C59AF"
                 },
                 Error  = { color = "#FF0000" },
