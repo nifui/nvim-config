@@ -4,7 +4,6 @@ local M = {
     "nvim-tree/nvim-web-devicons",
   },
 }
-
 function M.config()
   require("nvim-tree").setup({
     view = {
@@ -71,6 +70,9 @@ function M.config()
 
     filters = {
       dotfiles = false,
+      custom = {
+        ".\\~"
+      },
     },
 
     git = {
