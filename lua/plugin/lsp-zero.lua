@@ -31,6 +31,13 @@ function M.config()
             checkOnSave = {
                command = "check", -- instead of clippy
             },
+            inlayHints = {
+               typeHints = { enable = true },
+               parameterHints = { enable = true },
+               chainingHints = { enable = true },
+               closingBraceHints = { enable = true, minLines = 10 },
+               lifetimeElisionHints = { enable = "skip_trivial" },
+            },
          },
       },
       capabilities = lsp_defaults,

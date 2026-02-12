@@ -25,6 +25,9 @@ vim.keymap.set("n", "<leader>fw", function()
    builtin.live_grep({ default_text = vim.fn.expand("<cword>") })
 end, { desc = "Find word under cursor" })
 
+vim.keymap.set("n", "<leader>hi", function()
+   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end)
 
 
 -- vim.keymap.set("n", "<leader>f", function()
