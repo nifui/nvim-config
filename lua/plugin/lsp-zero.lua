@@ -6,16 +6,26 @@ local function get_root(markers)
    local root = vim.fs.dirname(vim.fs.find(markers, { upward = true })[1])
    return root or vim.loop.cwd()
 end
+
+local function start_lsp(ft, config)
+   vim.api.nvim_create_autocmd("FileType", {
+      pattern = ft,
+      callback = function()
+         vim.lsp.start(config)
+      end,
+
+   })
+end
+
 function M.config()
    local lsp_defaults = vim.lsp.protocol.make_client_capabilities()
    local cmp_caps = require("cmp_nvim_lsp").default_capabilities()
    lsp_defaults = vim.tbl_deep_extend("force", lsp_defaults, cmp_caps)
-
-
    -- Rust
-   vim.lsp.start({
+   start_lsp({ "rust", "rs" }, {
       name = "rust_analyzer",
       cmd = { "rust-analyzer" },
+      capabilities = lsp_defaults,
       root_dir = vim.fs.dirname(vim.fs.find({ "Cargo.toml", ".git" }, { upward = true })[1]),
       settings = {
          ["rust-analyzer"] = {
@@ -26,10 +36,10 @@ function M.config()
                },
             },
             procMacro = {
-               enable = false, -- if you can live without it
+               enable = false,
             },
             checkOnSave = {
-               command = "check", -- instead of clippy
+               command = "clippy", -- instead of clippy
             },
             inlayHints = {
                typeHints = { enable = true },
@@ -40,29 +50,27 @@ function M.config()
             },
          },
       },
-      capabilities = lsp_defaults,
    })
-
-   -- vim.lsp.start({
-   --    name = "asm_lsp",
-   --    cmd = { "asm-lsp" },
-   --    root_dir = get_root({ ".git", "Makefile", "makefile" }),
-   --    filetypes = { "asm", "s", "S" },
-   --    capabilities = lsp_defaults,
-   --    settings = {
-   --       asm_lsp = {
-   --          -- options:
-   --          -- dialect = "intel" | "att"
-   --          -- includePaths = { "include/" }
-   --       },
-   --    },
-   -- })
+   -- Asssembly
+   start_lsp({ "asm", "s", "S" }, {
+      name = "asm_lsp",
+      cmd = { "asm-lsp" },
+      root_dir = get_root({ ".git", "Makefile", "makefile" }),
+      filetypes = { "asm", "s", "S" },
+      capabilities = lsp_defaults,
+      settings = {
+         asm_lsp = {
+            -- options:
+            -- dialect = "intel" | "att"
+            -- includePaths = { "include/" }
+         },
+      },
+   })
    -- C/C++/Objective-C — ccls
-   vim.lsp.start({
+   start_lsp({ "c", "cc", "cpp", "cxx", "h", "hpp" }, {
       name = "ccls",
       cmd = { "ccls" }, -- make sure ccls is installed & in PATH
       root_dir = get_root({ "compile_commands.json", ".ccls", ".git" }),
-      filetypes = { "c", "cc", "cpp", "cxx", "h", "hpp" },
       capabilities = lsp_defaults,
       init_options = {
          cache = {
@@ -70,26 +78,29 @@ function M.config()
          },
       },
    })
+   -- Lua LSP
+   start_lsp({ "lua" }, {
+      name = "lua_ls",
+      cmd = { "lua-language-server" },
+      root_dir = get_root({ ".luarc.json", ".git" }),
+      settings = {
+         Lua = {
+            diagnostics = { globals = { "vim" } },
+            workspace = { checkThirdParty = false },
+         },
+      },
+   })
 
-   vim.lsp.inlay_hint.enable(true)
-
+   vim.api.nvim_create_autocmd("LspAttach", {
+      callback = function(args)
+         vim.lsp.inlay_hint.enable(true)
+      end,
+   })
    vim.diagnostic.config({
       virtual_text = true,
       signs = false,
       underline = true,
       update_in_insert = false,
-   })
-
-   -- You can attach keymaps manually when the client starts
-   vim.api.nvim_create_autocmd("LspAttach", {
-      callback = function(args)
-         local buf = args.buf
-         local opts = { buffer = buf }
-         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-         vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-      end,
    })
 end
 

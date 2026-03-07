@@ -107,6 +107,8 @@ local override = {
     DiagnosticVirtualTextInfo  = { fg = palette.light_blue, bg = palette.bg },
     DiagnosticVirtualTextWarn  = { fg = palette.brown_orange, bg = palette.bg },
     Statement                  = { fg = palette.pink },
+    NormalFloat                = { fg = palette.cyan },
+
 }
 vim.api.nvim_set_hl(0, "@lsp", {});
 vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = "#C586C0" })
@@ -152,6 +154,6 @@ local transparent_groups = {
     "TelescopeBorder",
 }
 
-for _, group in ipairs(transparent_groups) do
-    vim.api.nvim_set_hl(0, group, { bg = "NONE" })
-end
+-- for _, group in ipairs(transparent_groups) do
+--     vim.api.nvim_set_hl(0, group, { bg = "NONE" })
+-- end

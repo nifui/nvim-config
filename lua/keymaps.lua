@@ -90,12 +90,19 @@ vim.keymap.set("n", "<C-Left>", "b")
 vim.keymap.set("n", "<C-Right>", "w")
 
 -- lsp && mason keymaps
+local function hover()
+   vim.lsp.buf.hover({
+      border = "rounded",
+   })
+end
 
 vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition)
-vim.keymap.set("n", "<leader>h", vim.lsp.buf.hover)
+vim.keymap.set("n", "<leader>h", hover)
 vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action)
 vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
 vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
+
+
 
 -- gen keymaps
 -- nvim branch keymaps
