@@ -78,9 +78,23 @@ vim.keymap.set('n', '<C-e>', '<C-w>k')
 vim.keymap.set('n', '<C-d>', '<C-w>l')
 
 vim.keymap.set("n", "<C-t>", function() term.gotoTerminal(1) end)
-vim.keymap.set("n", "<leader>qw", ":q<CR>")
+local function save_and_quit()
+   if vim.bo.modified then
+      local choice = vim.fn.confirm("Save changes before quitting?", "&Yes\n&No\n&Cancel", 1)
+      if choice == 1 then
+         vim.cmd("write")
+         vim.cmd("quit")
+      elseif choice == 2 then
+         vim.cmd("quit!")
+      end
+      -- choice == 3 does nothing (cancel)
+   else
+      vim.cmd("quit")
+   end
+end
+vim.keymap.set("n", "<leader>qw", save_and_quit, { noremap = true })
 vim.keymap.set("n", "<leader>rr", ":vsplit<CR>")
-vim.keymap.set("n", "<leader>ii", ":split<CR>")
+vim.keymap.set("n", "<leader>ss", ":split<CR>")
 -- undotree keymaps
 
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)

@@ -2,7 +2,7 @@
 
 -- Set leader
 vim.g.mapleader = " "
-vim.o.autowriteall = true
+vim.o.autowriteall = false
 vim.api.nvim_create_autocmd("BufWritePre", {
    pattern = "*.rs",
    callback = function()
