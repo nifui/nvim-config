@@ -110,11 +110,11 @@ local function hover()
    })
 end
 
-vim.keymap.set("n", "<leader>d", vim.lsp.buf.definition)
-vim.keymap.set("n", "<leader>h", hover)
-vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action)
-vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
-vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
+vim.keymap.set("n", "<leader>de", vim.lsp.buf.definition)
+vim.keymap.set("n", "<leader>ge", hover)
+-- vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action)
+-- vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
+-- vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
 
 
 

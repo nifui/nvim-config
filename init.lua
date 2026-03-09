@@ -15,7 +15,10 @@ spec("plugin.nvim-autopairs")
 spec("plugin.nvim-tree")
 spec("plugin.indentline")
 spec("plugin.fidget")
+spec("plugin.better-diag")
 
+--probably not worth using for a minor visual improvement
+spec("plugin.noice")
 
 -- lsp related stuff
 spec("plugin.cmp")

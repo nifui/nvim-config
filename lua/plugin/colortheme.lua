@@ -110,7 +110,6 @@ local override = {
     NormalFloat                = { fg = palette.cyan },
 
 }
-vim.api.nvim_set_hl(0, "@lsp", {});
 vim.api.nvim_set_hl(0, "CmpItemKindFunction", { fg = "#C586C0" })
 vim.api.nvim_set_hl(0, "CmpItemKindMethod", { fg = "#C586C0" })
 vim.api.nvim_set_hl(0, "CmpItemKindVariable", { fg = "#9CDCFE" })
