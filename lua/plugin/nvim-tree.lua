@@ -83,6 +83,10 @@ function M.config()
     diagnostics = {
       enable = true,
       show_on_dirs = true,
+      severity = {
+        min = vim.diagnostic.severity.HINT,
+        max = vim.diagnostic.severity.ERROR,
+      },
       icons = {
         hint = "󰌵",
         info = "󰋼",

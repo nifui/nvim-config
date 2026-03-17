@@ -15,6 +15,7 @@ local function start_lsp(ft, config)
       end,
 
    })
+   print("lsp was started")
 end
 
 function M.config()
@@ -38,8 +39,12 @@ function M.config()
             procMacro = {
                enable = false,
             },
-            checkOnSave = {
-               command = "clippy", -- instead of clippy
+            diagnostics = {
+               enable = true,
+            },
+            checkOnSave = true,
+            check = {
+               command = "clippy",
             },
             inlayHints = {
                typeHints = { enable = true },
