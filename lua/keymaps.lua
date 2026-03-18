@@ -1,27 +1,21 @@
 vim.g.mapleader = " "
-vim.keymap.set('n', '<leader>tt', ':bnext<CR>', { desc = 'Go to next buffer (e.g., terminal)' })
+-- vim.keymap.set('n', '<leader>tt', ':bnext<CR>', { desc = 'Go to next buffer (e.g., terminal)' })
 -- go back to pre existing terminal
 vim.keymap.set('n', '<leader>te', '<cmd>ToggleTerm<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('t', '<Esc>', [[<C-\><C-n>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true, silent = true })
 -- telescope keymaps
-
--- Function to toggle a floating terminal
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>pf", builtin.find_files)
-vim.keymap.set("n", "<C-g>", builtin.git_files)
+vim.keymap.set("n", "<leader>ff", builtin.find_files)
+-- vim.keymap.set("n", "<C-g>", builtin.git_files)
 vim.keymap.set("n", "<leader>d", function()
    require("telescope.builtin").diagnostics({
       sort_by = "severity", -- sort by severity (errors first)
    })
 end, { desc = "Diagnostics (sorted by severity)" })
--- Project-wide keyword search
+
 vim.keymap.set("n", "<leader>f", builtin.live_grep, { desc = "Find word (project)" })
-
--- Current buffer only (super fast)
 vim.keymap.set("n", "<leader>fb", builtin.current_buffer_fuzzy_find, { desc = "Find word (buffer)" })
-
--- Optional: search word under cursor
 vim.keymap.set("n", "<leader>fw", function()
    builtin.live_grep({ default_text = vim.fn.expand("<cword>") })
 end, { desc = "Find word under cursor" })
@@ -31,31 +25,6 @@ vim.keymap.set("n", "<leader>hi", function()
 end)
 
 
--- vim.keymap.set("n", "<leader>f", function()
---    local term = vim.fn.input("Grep > ")
---    if term == "" then return end
---    local cmd = table.concat({
---       "grep", "-rnI",
---       "--exclude-dir=.git",
---       "--exclude-dir=target",
---       "--exclude-dir=node_modules",
---       vim.fn.shellescape(term),
---       "."
---    }, " ")
-
---    local results = vim.fn.systemlist(cmd)
-
---    if vim.v.shell_error ~= 0 or vim.tbl_isempty(results) then
---       print("No matches found.")
---       return
---    end
-
---    vim.cmd("copen")
---    vim.fn.setqflist({}, 'r', { title = 'Grep Results', lines = results })
--- end, { desc = "Simple grep (no ripgrep)" })
--- lwk dont wanna use dependencies so imma go with this`
--- fugitive keymaps
-vim.keymap.set("i", "_+", "<Esc>")
 
 vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 vim.keymap.set("n", "td", function()
@@ -128,6 +97,11 @@ vim.keymap.set('n', '<leader><Tab>', '<cmd>NvimTreeToggle<CR>')
 vim.keymap.set('n', "<leader>w", ':w<CR>')
 
 --markdown notes taking
-vim.keymap.set('n', "<leader>md", ':MarkdownPreview<CR>')
-vim.keymap.set('n', "<leader>cd", ':MarkdownPreviewStop<CR>')
-vim.keymap.set("n", "<leader>pp", builtin.find_files, { desc = "Find files" })
+-- vim.keymap.set('n', "<leader>md", ':MarkdownPreview<CR>')
+-- vim.keymap.set('n', "<leader>cd", ':MarkdownPreviewStop<CR>')
+-- vim.keymap.set("n", "<leader>pp", builtin.find_files, { desc = "Find files" })
+
+
+vim.keymap.set("n", "<leader>at", "<C-^>")
+vim.keymap.set("n", "<leader>bb", "<C-o>")
+vim.keymap.set("n", "<leader>gb", "<C-i>")
