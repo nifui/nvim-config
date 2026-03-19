@@ -49,20 +49,42 @@ vim.keymap.set('n', '<C-d>', '<C-w>l')
 
 vim.keymap.set("n", "<C-t>", function() term.gotoTerminal(1) end)
 local function save_and_quit()
-   if vim.bo.modified then
-      local choice = vim.fn.confirm("Save changes before quitting?", "&Yes\n&No\n&Cancel", 1)
-      if choice == 1 then
-         vim.cmd("write")
-         vim.cmd("quit")
-      elseif choice == 2 then
-         vim.cmd("quit!")
+   -- Ensure buffer is valid
+   if not vim.api.nvim_get_current_buf() then
+      vim.notify("No active buffer", vim.log.levels.ERROR)
+      return
+   end
+
+   local function safe_cmd(cmd)
+      local ok, err = pcall(vim.cmd, cmd)
+      if not ok then
+         vim.notify("Command failed: " .. cmd .. "\n" .. err, vim.log.levels.ERROR)
       end
-      -- choice == 3 does nothing (cancel)
+      return ok
+   end
+
+   if vim.bo.modified then
+      local choice = vim.fn.confirm(
+         "Save changes before quitting?",
+         "&Yes\n&No\n&Cancel",
+         1
+      )
+
+      if choice == 1 then
+         if safe_cmd("write") then
+            safe_cmd("quit")
+         end
+      elseif choice == 2 then
+         safe_cmd("quit!")
+      else
+         -- Cancel → do nothing
+         return
+      end
    else
-      vim.cmd("quit")
+      safe_cmd("quit")
    end
 end
-vim.keymap.set("n", "<leader>qw", save_and_quit, { noremap = true })
+vim.keymap.set("n", "<leader>qw", save_and_quit, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>rr", ":vsplit<CR>")
 vim.keymap.set("n", "<leader>ss", ":split<CR>")
 -- undotree keymaps
