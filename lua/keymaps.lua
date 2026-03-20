@@ -43,7 +43,7 @@ local term = require("harpoon.term")
 vim.keymap.set("n", "<leader>a", mark.add_file)
 -- init.lua
 vim.keymap.set('n', '<C-a>', '<C-w>h')
-vim.keymap.set('n', '<C-s>', '<C-w>j')
+vim.keymap.set('n', '<C-x>', '<C-w>j')
 vim.keymap.set('n', '<C-e>', '<C-w>k')
 vim.keymap.set('n', '<C-d>', '<C-w>l')
 
@@ -84,26 +84,26 @@ local function save_and_quit()
       safe_cmd("quit")
    end
 end
+-- quit and write.
 vim.keymap.set("n", "<leader>qw", save_and_quit, { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>rr", ":vsplit<CR>")
-vim.keymap.set("n", "<leader>ss", ":split<CR>")
--- undotree keymaps
+vim.keymap.set("n", "<leader>qq", vim.cmd.quit, { silent = true })
+vim.keymap.set("n", "<leader>rr", vim.cmd.vsplit, { silent = true })
+vim.keymap.set("n", "<leader>ss", vim.cmd.split, { silent = true });
 
+-- undotree keymaps
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 vim.keymap.set("n", "<C-Up>", "5k")
 vim.keymap.set("n", "<C-Down>", "5j")
 vim.keymap.set("n", "<C-Left>", "b")
 vim.keymap.set("n", "<C-Right>", "w")
-
 -- lsp && mason keymaps
 local function hover()
    vim.lsp.buf.hover({
-      border = "rounded",
    })
 end
 
-vim.keymap.set("n", "<leader>de", vim.lsp.buf.definition)
-vim.keymap.set("n", "<leader>ge", hover)
+vim.keymap.set("n", "<leader>as", vim.lsp.buf.definition)
+vim.keymap.set("n", "<leader>sd", hover)
 -- vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action)
 -- vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
 -- vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
@@ -116,7 +116,7 @@ vim.keymap.set('n', '<leader><Tab>', '<cmd>NvimTreeToggle<CR>')
 
 
 -- stupid personal preference stuff
-vim.keymap.set('n', "<leader>w", ':w<CR>')
+vim.keymap.set('n', "<C-s>", vim.cmd.write, { silent = true })
 
 --markdown notes taking
 -- vim.keymap.set('n', "<leader>md", ':MarkdownPreview<CR>')
@@ -125,5 +125,5 @@ vim.keymap.set('n', "<leader>w", ':w<CR>')
 
 
 vim.keymap.set("n", "<leader>at", "<C-^>")
-vim.keymap.set("n", "<leader>bb", "<C-o>")
-vim.keymap.set("n", "<leader>gb", "<C-i>")
+vim.keymap.set("n", "<leader>er", "<C-o>")
+vim.keymap.set("n", "<leader>we", "<C-i>")
