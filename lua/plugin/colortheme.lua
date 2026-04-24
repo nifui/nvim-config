@@ -131,9 +131,37 @@ vim.cmd("syntax on")
 vim.opt.background = "dark"
 vim.g.colors_name = "noctis"
 -- apply the palette
-local ctheme = require('plugin.lang_themes.c');
-local rusttheme = require('plugin.lang_themes.rust')
-local language_overrides = Merge(override, ctheme, rusttheme);
+local rusttheme = {
+    ["@lsp.type.namespace.rust"]                = { fg = palette.light_blue, },
+    ["@lsp.type.function.rust"]                 = { fg = palette.cyan },
+    ["@lsp.mod.public.rust"]                    = { fg = palette.cyan },
+    ["@lsp.type.parameter.rust"]                = { fg = palette.tan },
+    ["@lsp.typemod.variable.declaration.rust"]  = { fg = palette.tan },
+    ["@lsp.typemod.parameter.declaration.rust"] = { fg = palette.tan },
+    ["@lsp.type.builtinType.rust"]              = { fg = palette.brown_orange, italic = true },
+    ["@lsp.type.macro.rust"]                    = { fg = palette.cyan },
+    ["@lsp.type.variable.rust"]                 = { fg = palette.tan },
+    ["@lsp.type.property.rust"]                 = { fg = palette.grey_blue },
+    ["@lsp.type.struct.rust"]                   = { fg = palette.brown_orange },
+    ["@lsp.type.const.rust"]                    = { fg = palette.constant_orang, bold = false },
+    ["@lsp.typemod.function.declaration.rust"]  = { fg = palette.cyan },
+    ["@lsp.import.rust"]                        = { fg = palette.orange },
+    ["@keyword.modifier.rust"]                  = { fg = palette.pink },
+    ["@keyword.function.rust"]                  = { fg = palette.orange, bold = true },
+    ["@keyword.import.rust"]                    = { fg = palette.orange },
+    ["@lsp.type.interface.rust"]                = { fg = palette.brown_orange },
+    ["@lsp.type.typeAlias.rust"]                = { fg = palette.brown_orange },
+    ["@lsp.type.enumMember.rust"]               = { fg = palette.brown_orange },
+    ["@punctuation.bracket.rust"]               = { fg = palette.br_highlight_1 },
+    ["@operator.rust"]                          = { fg = palette.br_highlight_2 },
+    ["@lsp.type.enum.rust"]                     = { fg = palette.brown_orange },
+    ["@lsp.type.method.rust"]                   = { fg = palette.cyan },
+    ["@number.float"]                           = { fg = palette.purple },
+    ["@number.rust"]                            = { fg = palette.purple },
+    ["@boolean.rust"]                           = { fg = palette.purple },
+    ["@lsp.type.attributeBracket.rust"]         = { fg = palette.yolk_yellow },
+}
+local language_overrides = Merge(override, rusttheme);
 
 
 from_palette(palette, language_overrides)

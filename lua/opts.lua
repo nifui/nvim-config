@@ -48,3 +48,7 @@ vim.opt.ignorecase = true
 vim.opt.clipboard = "unnamedplus"
 -- Prevent the go back and ahead stuff from accessing previous directory stuff.
 vim.opt.shada = ""
+vim.api.nvim_set_hl(0, "CmpGhostText", {
+   link = "Comment",
+   default = true,
+})

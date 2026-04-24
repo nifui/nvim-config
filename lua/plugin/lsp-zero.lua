@@ -15,7 +15,6 @@ local function start_lsp(ft, config)
       end,
 
    })
-   print("lsp was started")
 end
 
 function M.config()
@@ -37,7 +36,12 @@ function M.config()
                },
             },
             procMacro = {
-               enable = false,
+               enable = true,
+               ignored = {
+                  leptos_macro = {
+                     "server",
+                  }
+               }
             },
             diagnostics = {
                enable = true,

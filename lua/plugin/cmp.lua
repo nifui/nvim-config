@@ -1,3 +1,31 @@
+local kind_icons = {
+    Text = "",
+    Method = "󰆧",
+    Function = "󰊕",
+    Constructor = "",
+    Field = "󰇽",
+    Variable = "󰂡",
+    Class = "󰠱",
+    Interface = "",
+    Module = "",
+    Property = "󰜢",
+    Unit = "",
+    Value = "󰎠",
+    Enum = "",
+    Keyword = "󰌋",
+    Snippet = "",
+    Color = "󰏘",
+    File = "󰈙",
+    Reference = "",
+    Folder = "󰉋",
+    EnumMember = "",
+    Constant = "󰏿",
+    Struct = "",
+    Event = "",
+    Operator = "󰆕",
+    TypeParameter = "󰅲",
+}
+
 return {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -7,13 +35,18 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        "onsails/lspkind.nvim",
+        'saecki/crates.nvim',
     },
     config = function()
         local cmp = require("cmp")
         local luasnip = require("luasnip")
-        local lspkind = require("lspkind")
-
+        require("crates").setup {
+            completion = {
+                cmp = {
+                    enabled = true,
+                },
+            },
+        }
         cmp.setup({
             completion = {
                 completeopt = "menu,menuone,noinsert",
@@ -64,6 +97,7 @@ return {
                 { name = "luasnip" },
                 { name = "path" },
                 { name = "buffer" },
+                { name = "crates" }
             }),
 
             sorting = {
@@ -78,7 +112,6 @@ return {
                     cmp.config.compare.order,
                 },
             },
-
             window = {
                 completion = cmp.config.window.bordered({
                     winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel",
@@ -86,23 +119,28 @@ return {
                 documentation = {
                     border = "rounded",
                     max_width = 60,
-                    max_height = 15,
+                    max_height = 40,
                 },
             },
             view = {
                 docs = {
-                    auto_open = false,
+                    auto_open = true,
                 },
             },
             formatting = {
                 fields = { "kind", "abbr", "menu" },
-                format = lspkind.cmp_format({
-                    mode = "symbol_text",
-                    maxwidth = 40,
-                    ellipsis_char = "…",
-                }),
-            },
+                format = function(entry, vim_item)
+                    vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind] or "", vim_item.kind)
+                    vim_item.menu = ({
+                        nvim_lsp = "|LSP|",
+                        luasnip = "|Snip|",
+                        buffer = "|Buf|",
+                        path = "|Path|",
+                    })[entry.source.name]
 
+                    return vim_item
+                end,
+            },
             experimental = {
                 ghost_text = {
                     hl_group = "CmpGhostText",
