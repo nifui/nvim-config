@@ -5,7 +5,7 @@ local M = {
 }
 function M.config()
     require("toggleterm").setup {
-        size = 20,
+        size = 10,
         open_mapping = nil,
         hide_numbers = true,
         shade_terminals = true,

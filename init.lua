@@ -16,7 +16,7 @@ spec("plugin.nvim-tree")
 spec("plugin.indentline")
 spec("plugin.fidget")
 spec("plugin.better-diag")
-
+spec("plugin.multicursor")
 --probably not worth using for a minor visual improvement
 spec("plugin.noice")
 

@@ -25,22 +25,8 @@ vim.keymap.set("n", "<leader>hi", function()
 end)
 
 
-
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
-vim.keymap.set("n", "td", function()
-   if vim.api.nvim_win_get_config(0).relative == "" then -- Not inside floating window
-      vim.diagnostic.open_float(nil, { focus = false })  -- Another call jumps into the floating window
-   else                                                  -- Inside a floating window
-      vim.api.nvim_win_close(0, false)                   -- Or you can press "q" in the floating window
-   end
-end, { desc = "[t] Toggle diagnostic floating window" })
--- harpoon keymaps
-
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
 local term = require("harpoon.term")
 
-vim.keymap.set("n", "<leader>a", mark.add_file)
 -- init.lua
 vim.keymap.set('n', '<C-a>', '<C-w>h')
 vim.keymap.set('n', '<C-x>', '<C-w>j')
@@ -77,7 +63,6 @@ local function save_and_quit()
       elseif choice == 2 then
          safe_cmd("quit!")
       else
-         -- Cancel → do nothing
          return
       end
    else
@@ -96,14 +81,14 @@ vim.keymap.set("n", "<C-Up>", "5k")
 vim.keymap.set("n", "<C-Down>", "5j")
 vim.keymap.set("n", "<C-Left>", "b")
 vim.keymap.set("n", "<C-Right>", "w")
--- lsp && mason keymaps
 local function hover()
    vim.lsp.buf.hover({
+
    })
 end
 
-vim.keymap.set("n", "<leader>as", vim.lsp.buf.definition)
-vim.keymap.set("n", "<leader>sd", hover)
+vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition)
+vim.keymap.set("n", "<leader>do", hover)
 -- vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action)
 -- vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
 -- vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
