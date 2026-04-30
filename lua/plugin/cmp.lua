@@ -35,18 +35,10 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        'saecki/crates.nvim',
     },
     config = function()
         local cmp = require("cmp")
         local luasnip = require("luasnip")
-        require("crates").setup {
-            completion = {
-                cmp = {
-                    enabled = true,
-                },
-            },
-        }
         cmp.setup({
             completion = {
                 completeopt = "menu,menuone,noinsert",
@@ -97,7 +89,6 @@ return {
                 { name = "luasnip" },
                 { name = "path" },
                 { name = "buffer" },
-                { name = "crates" }
             }),
 
             sorting = {
@@ -130,13 +121,22 @@ return {
             formatting = {
                 fields = { "kind", "abbr", "menu" },
                 format = function(entry, vim_item)
+                    local item = entry.completion_item
+
                     vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind] or "", vim_item.kind)
+
                     vim_item.menu = ({
-                        nvim_lsp = "|LSP|",
-                        luasnip = "|Snip|",
-                        buffer = "|Buf|",
-                        path = "|Path|",
+                        nvim_lsp = "",
+                        buffer = "",
+                        path = "",
                     })[entry.source.name]
+
+                    -- Add module / path info
+                    if item.labelDetails and item.labelDetails.description then
+                        vim_item.menu = vim_item.menu .. " " .. item.labelDetails.description
+                    elseif item.detail then
+                        vim_item.menu = vim_item.menu .. " " .. item.detail
+                    end
 
                     return vim_item
                 end,
