@@ -10,7 +10,7 @@ function M.config()
    local previewers = require("telescope.previewers")
 
    telescope.setup({
-      defaults = {
+      defaults = { 
          prompt_prefix = " ",
          selection_caret = "❯ ",
          path_display = { "smart" },
