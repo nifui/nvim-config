@@ -39,7 +39,6 @@ function M.config()
                extraArgs = {
                   "--no-deps",
                   "--",
-                  "-W", "clippy::pedantic",
                   "-W", "clippy::nursery",
                },
             },

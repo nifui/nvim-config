@@ -36,9 +36,10 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "saecki/crates.nvim",
-
+        "onsails/lspkind.nvim",
     },
     config = function()
+        local lspkind = require("lspkind")
         local cmp = require("cmp")
         local luasnip = require("luasnip")
         require("crates").setup {
@@ -130,20 +131,11 @@ return {
             },
             formatting = {
                 fields = { "kind", "abbr", "menu" },
-                format = function(entry, vim_item)
-                    local item = entry.completion_item
-
-                    vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind] or "", vim_item.kind)
-
-                    vim_item.menu = ({
-                        nvim_lsp = "",
-                        buffer = "",
-                        path = "",
-                    })[entry.source.name]
-
-
-                    return vim_item
-                end,
+                format = lspkind.cmp_format({
+                    mode = "symbol_text",
+                    maxwidth = 40,
+                    ellipsis_char = "…",
+                }),
             },
             experimental = {
                 ghost_text = {
