@@ -161,10 +161,77 @@ local rusttheme = {
     ["@boolean.rust"]                           = { fg = palette.purple },
     ["@lsp.type.attributeBracket.rust"]         = { fg = palette.yolk_yellow },
 }
+
+local ctheme = {
+    -- LSP semantic tokens / treesitter
+    ["@lsp.type.namespace.c"]                = { fg = palette.light_blue },
+    ["@lsp.type.function.c"]                 = { fg = palette.cyan },
+    ["@lsp.mod.public.c"]                    = { fg = palette.cyan },
+    ["@lsp.type.parameter.c"]                = { fg = palette.tan },
+    ["@lsp.typemod.parameter.declaration.c"] = { fg = palette.tan },
+    ["@lsp.type.builtinType.c"]              = { fg = palette.brown_orange, italic = true },
+    ["@lsp.type.macro.c"]                    = { fg = palette.cyan },
+    ["@lsp.type.variable.c"]                 = { fg = palette.tan },
+    ["@lsp.type.property.c"]                 = { fg = palette.grey_blue },
+    ["@lsp.type.struct.c"]                   = { fg = palette.brown_orange },
+    ["@lsp.type.const.c"]                    = { fg = palette.constant_orang },
+    ["@lsp.typemod.function.declaration.c"]  = { fg = palette.cyan },
+
+    -- keywords / control
+    ["@keyword.modifier.c"]                  = { fg = palette.pink },
+    ["@keyword.function.c"]                  = { fg = palette.orange, bold = true },
+    ["@keyword.import.c"]                    = { fg = palette.orange },
+
+    -- punctuation / operators
+    ["@punctuation.bracket.c"]               = { fg = palette.br_highlight_1 },
+    ["@operator.c"]                          = { fg = palette.br_highlight_2 },
+
+    -- numbers / booleans / constants
+    ["@number.c"]                            = { fg = palette.purple },
+    ["@boolean.c"]                           = { fg = palette.purple },
+    ["@constant.builtin.c"]                  = { fg = palette.constant_orang },
+
+    -- preprocessor / includes
+    ["@preproc.c"]                           = { fg = palette.yellow },
+    ["@include.c"]                           = { fg = palette.orange },
+
+    -- macros and defines
+    ["@macro.c"]                             = { fg = palette.cyan },
+
+    -- types / enums / typedefs
+    ["@type.c"]                              = { fg = palette.brown_orange },
+    ["@type.qualifier.c"]                    = { fg = palette.tan },
+
+    -- struct members / fields
+    ["@field.c"]                             = { fg = palette.grey_blue },
+
+    -- function calls vs definitions (treesitter / LSP)
+    ["@function.call.c"]                     = { fg = palette.cyan },
+    ["@function.definition.c"]               = { fg = palette.cyan },
+
+    -- attributes / annotations
+    ["@attribute.c"]                         = { fg = palette.yolk_yellow },
+
+    -- punctuation / delimiters
+    Delimiter                                = { fg = palette.pink },
+    Operator                                 = { fg = palette.pink },
+
+    -- Diagnostics mapping (reuse your override entries if needed)
+    DiagnosticError                          = { fg = palette.real_red },
+    DiagnosticHint                           = { fg = palette.brown_orange },
+    DiagnosticInfo                           = { fg = palette.light_blue },
+    DiagnosticWarn                           = { fg = palette.brown_orange },
+}
+
 local language_overrides = Merge(override, rusttheme);
-
-
 from_palette(palette, language_overrides)
+
+local c_overrides = Merge(override, ctheme)
+from_palette(palette, c_overrides)
+
+
+
+
 -- Make background transparent
 local transparent_groups = {
     "Normal",

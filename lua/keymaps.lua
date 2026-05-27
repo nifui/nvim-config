@@ -13,7 +13,6 @@ vim.keymap.set("n", "<leader>d", function()
       sort_by = "severity", -- sort by severity (errors first)
    })
 end, { desc = "Diagnostics (sorted by severity)" })
-
 vim.keymap.set("n", "<leader>f", builtin.live_grep, { desc = "Find word (project)" })
 vim.keymap.set("n", "<leader>fb", builtin.current_buffer_fuzzy_find, { desc = "Find word (buffer)" })
 vim.keymap.set("n", "<leader>fw", function()

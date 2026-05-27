@@ -48,7 +48,32 @@ function M.config()
          },
       },
    })
-
+   vim.lsp.config("clangd", {
+      cmd = {
+         "clangd",
+         "--background-index",
+         "--clang-tidy",
+         "--completion-style=detailed",
+         "--header-insertion=never",
+         "--cross-file-rename",
+         "--query-driver=**/usr/bin/clang*,**/usr/local/bin/clang*",
+      },
+      capabilities = cmp_caps,
+      root_dir = function(bufnr, on_dir)
+         local fname = vim.api.nvim_buf_get_name(bufnr)
+         local root = vim.fs.dirname(
+            vim.fs.find({ "compile_commands.json", "compile_flags.txt", ".git" }, { upward = true, path = fname })[1]
+         )
+         on_dir(root or vim.fs.dirname(fname))
+      end,
+      settings = {
+         -- clangd picks up clang-tidy via --clang-tidy; additional clang-tidy options can be passed
+         clangd = {
+            diagnostics = { enable = true },
+         },
+      },
+   })
+   vim.lsp.enable("clangd")
    vim.lsp.enable("rust_analyzer")
 end
 
@@ -57,7 +82,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
       vim.lsp.inlay_hint.enable(true)
    end,
 })
-
+vim.api.nvim_create_autocmd("FileType", {
+   pattern = { "c", "cpp", "h", "hpp" },
+   callback = function()
+      vim.opt_local.shiftwidth = 4
+      vim.opt_local.tabstop = 4
+      vim.opt_local.softtabstop = 4
+      vim.opt_local.expandtab = true
+   end,
+})
 vim.diagnostic.config({
    virtual_text = true,
    signs = false,
