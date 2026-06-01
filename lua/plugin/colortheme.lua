@@ -176,7 +176,9 @@ local ctheme = {
     ["@lsp.type.struct.c"]                   = { fg = palette.brown_orange },
     ["@lsp.type.const.c"]                    = { fg = palette.constant_orang },
     ["@lsp.typemod.function.declaration.c"]  = { fg = palette.cyan },
-
+    ["@lsp.type.enumMember.c"]               = { fg = palette.orange },
+    ["@lsp.type.type.c"]                     = { fg = palette.orange },
+    ["@lsp.type.class.c"]                    = { fg = palette.orange },
     -- keywords / control
     ["@keyword.modifier.c"]                  = { fg = palette.pink },
     ["@keyword.function.c"]                  = { fg = palette.orange, bold = true },
