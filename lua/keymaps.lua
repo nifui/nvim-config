@@ -13,9 +13,9 @@ vim.keymap.set("n", "<leader>d", function()
       sort_by = "severity", -- sort by severity (errors first)
    })
 end, { desc = "Diagnostics (sorted by severity)" })
-vim.keymap.set("n", "<leader>f", builtin.live_grep, { desc = "Find word (project)" })
+vim.keymap.set("n", "<leader>fw", builtin.live_grep, { desc = "Find word (project)" })
 vim.keymap.set("n", "<leader>fb", builtin.current_buffer_fuzzy_find, { desc = "Find word (buffer)" })
-vim.keymap.set("n", "<leader>fw", function()
+vim.keymap.set("n", "<leader>fc", function()
    builtin.live_grep({ default_text = vim.fn.expand("<cword>") })
 end, { desc = "Find word under cursor" })
 
@@ -87,11 +87,11 @@ local function hover()
 end
 
 vim.keymap.set("n", "<leader>df", vim.lsp.buf.definition)
-vim.keymap.set("n", "<leader>do", hover)
--- vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action)
--- vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references)
--- vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename)
-
+vim.keymap.set("n", "<leader>da", hover)
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<leader>re", vim.lsp.buf.references)
+vim.keymap.set("n", "<leader>ra", vim.lsp.buf.rename)
+vim.keymap.set("n", "<leader>ch", vim.lsp.buf.signature_help)
 
 
 -- gen keymaps

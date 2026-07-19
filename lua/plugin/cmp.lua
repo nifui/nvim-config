@@ -1,3 +1,4 @@
+
 local kind_icons = {
     Text = "",
     Method = "󰆧",
@@ -35,20 +36,12 @@ return {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
-        "saecki/crates.nvim",
         "onsails/lspkind.nvim",
     },
     config = function()
         local lspkind = require("lspkind")
         local cmp = require("cmp")
         local luasnip = require("luasnip")
-        require("crates").setup {
-            completion = {
-                cmp = {
-                    enabled = true,
-                },
-            },
-        }
         cmp.setup({
             completion = {
                 completeopt = "menu,menuone,noinsert",
@@ -67,17 +60,6 @@ return {
                     behavior = cmp.ConfirmBehavior.Insert,
                     select = true,
                 }),
-
-                ["<Tab>"] = cmp.mapping(function(fallback)
-                    if cmp.visible() then
-                        cmp.select_next_item()
-                    elseif luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump()
-                    else
-                        fallback() -- insert a real tab or trigger indent
-                    end
-                end, { "i", "s" }),
-
                 ["<S-Tab>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
                         cmp.select_prev_item()
@@ -97,7 +79,6 @@ return {
                 { name = "luasnip" },
                 { name = "path" },
                 { name = "buffer" },
-                { name = "crates" },
             }),
 
             sorting = {

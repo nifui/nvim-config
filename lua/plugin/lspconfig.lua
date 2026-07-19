@@ -56,16 +56,21 @@ function M.config()
          "--completion-style=detailed",
          "--header-insertion=never",
          "--cross-file-rename",
-         "--query-driver=**/usr/bin/clang*,**/usr/local/bin/clang*",
+         "--query-driver=**/usr/bin/clang*,**/usr/local/bin/clang*,**/usr/bin/gcc",
+         "--pch-storage=memory",
+
       },
       capabilities = cmp_caps,
       root_dir = function(bufnr, on_dir)
          local fname = vim.api.nvim_buf_get_name(bufnr)
-         local root = vim.fs.dirname(
-            vim.fs.find({ "compile_commands.json", "compile_flags.txt", ".git" }, { upward = true, path = fname })[1]
-         )
+         local root = vim.fs.root(fname, {
+            "compile_commands.json",
+            "compile_flags.txt",
+            ".clangd",
+            ".git",
+         })
          on_dir(root or vim.fs.dirname(fname))
-      end,
+      end, 
       settings = {
          -- clangd picks up clang-tidy via --clang-tidy; additional clang-tidy options can be passed
          clangd = {

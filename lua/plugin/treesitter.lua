@@ -9,7 +9,7 @@ function M.config()
         ensure_installed = { "lua", "rust", "asm", "vue" },
         sync_install = true,
         auto_install = true,
-        highlight = { enable = true },
+        highlight = { enable = true},
         indent = { enable = true },
     }
 end
