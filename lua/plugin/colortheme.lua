@@ -217,13 +217,76 @@ local ctheme = {
     -- punctuation / delimiters
     Delimiter                                = { fg = palette.pink },
     Operator                                 = { fg = palette.pink },
-
     -- Diagnostics mapping (reuse your override entries if needed)
     DiagnosticError                          = { fg = palette.real_red },
     DiagnosticHint                           = { fg = palette.brown_orange },
     DiagnosticInfo                           = { fg = palette.light_blue },
     DiagnosticWarn                           = { fg = palette.brown_orange },
 }
+
+-- This actually properly works.
+local fixed_ctheme = {
+    -- LSP semantic tokens / treesitter
+    ["@lsp.type.namespace.cpp"]                = { fg = palette.light_blue },
+    ["@lsp.type.function.cpp"]                 = { fg = palette.cyan },
+    ["@lsp.mod.public.cpp"]                    = { fg = palette.cyan },
+    ["@lsp.type.parameter.cpp"]                = { fg = palette.tan },
+    ["@lsp.typemod.parameter.declaration.cpp"] = { fg = palette.tan },
+    ["@lsp.type.builtinType.cpp"]              = { fg = palette.brown_orange, italic = true },
+    ["@lsp.type.macro.cpp"]                    = { fg = palette.cyan },
+    ["@lsp.type.variable.cpp"]                 = { fg = palette.tan },
+    ["@lsp.type.property.cpp"]                 = { fg = palette.grey_blue },
+    ["@lsp.type.struct.cpp"]                   = { fg = palette.brown_orange },
+    ["@lsp.type.const.cpp"]                    = { fg = palette.constant_orang },
+    ["@lsp.typemod.function.declaration.cpp"]  = { fg = palette.cyan },
+    ["@lsp.type.enumMember.cpp"]               = { fg = palette.orange },
+    ["@lsp.type.type.cpp"]                     = { fg = palette.orange },
+    ["@lsp.type.class.cpp"]                    = { fg = palette.orange },
+    -- keywords / control
+    ["@keyword.modifier.cpp"]                  = { fg = palette.pink },
+    ["@keyword.function.cpp"]                  = { fg = palette.orange, bold = true },
+    ["@keyword.import.cpp"]                    = { fg = palette.orange },
+
+    -- punctuation / operators
+    ["@punctuation.bracket.cpp"]               = { fg = palette.br_highlight_1 },
+    ["@operator.cpp"]                          = { fg = palette.br_highlight_2 },
+
+    -- numbers / booleans / constants
+    ["@number.cpp"]                            = { fg = palette.purple },
+    ["@boolean.cpp"]                           = { fg = palette.purple },
+    ["@constant.builtin.cpp"]                  = { fg = palette.constant_orang },
+
+    -- preprocessor / includes
+    ["@preproc.cpp"]                           = { fg = palette.yellow },
+    ["@include.cpp"]                           = { fg = palette.orange },
+
+    -- macros and defines
+    ["@macro.cpp"]                             = { fg = palette.cyan },
+
+    -- types / enums / typedefs
+    ["@type.cpp"]                              = { fg = palette.brown_orange },
+    ["@type.qualifier.cpp"]                    = { fg = palette.tan },
+
+    -- struct members / fields
+    ["@field.cpp"]                             = { fg = palette.grey_blue },
+
+    -- function calls vs definitions (treesitter / LSP)
+    ["@function.call.cpp"]                     = { fg = palette.cyan },
+    ["@function.definition.cpp"]               = { fg = palette.cyan },
+
+    -- attributes / annotations
+    ["@attribute.cpp"]                         = { fg = palette.yolk_yellow },
+
+    -- punctuation / delimiters
+    Delimiter                                = { fg = palette.pink },
+    Operator                                 = { fg = palette.pink },
+    -- Diagnostics mapping (reuse your override entries if needed)
+    DiagnosticError                          = { fg = palette.real_red },
+    DiagnosticHint                           = { fg = palette.brown_orange },
+    DiagnosticInfo                           = { fg = palette.light_blue },
+    DiagnosticWarn                           = { fg = palette.brown_orange },
+}
+
 
 local language_overrides = Merge(override, rusttheme);
 from_palette(palette, language_overrides)
