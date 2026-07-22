@@ -291,9 +291,11 @@ local fixed_ctheme = {
 local language_overrides = Merge(override, rusttheme);
 from_palette(palette, language_overrides)
 
-local c_overrides = Merge(override, fixed_ctheme);
-from_palette(palette, c_overrides)
+local cpp_overrides = Merge(override, fixed_ctheme);
+from_palette(palette, cpp_overrides)
 
+local c_overrides = Merge(override, ctheme);
+from_palette(palette, c_overrides)
 
 
 
